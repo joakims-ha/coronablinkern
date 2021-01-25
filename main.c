@@ -28,6 +28,7 @@ int showMenu()
 	printf("> ");
 	int m;
 	scanf("%d", &m);
+	while ((getchar()) != '\n'); 
 	return m;
 }
 
