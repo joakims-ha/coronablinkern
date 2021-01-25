@@ -36,8 +36,26 @@ void uploadLog()
 int main()
 {	
 	init();
-	int c = showMenu();
-	printf("choice: %d\n",c);
-	return 0;
+	while(1)
+	{
+		switch(showMenu())
+		{
+			case 1:
+				printf("Lägg till\n");
+				break;
+			case 2:
+				printf("Larm\n");
+				break;
+			case 3:
+				printf("Meddela\n");
+				break;
+			case 4:
+				printf("Hejdå\n");
+				return 0;
+			default:
+				printf("Felakting val\n");
+		}
+		printf("\n");
+	}
 }
 
