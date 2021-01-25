@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <time.h>
 
 struct Entry
 {
    int  id;
-   int  time;
+   time_t  timestamp;
 } logg[10];
 
 
@@ -38,7 +39,8 @@ void logDevice()
 	int id;
 	scanf("%d", &id);
 	logg[0].id = id;
-	printf("id:%d",logg[0].id);
+	time(&logg[0].timestamp);
+	printf("\nid: %d tid: %s",logg[0].id, ctime(&logg[0].timestamp));
 }
 
 void uploadLog()
