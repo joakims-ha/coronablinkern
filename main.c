@@ -8,6 +8,19 @@ void init()
 int showMenu()
 {
 	// Display menu and get choice
+	printf("\n");
+	printf("  Välkommen till Coronablinkern\n");
+	printf("=================================\n");
+	printf("1) Lägg till enhet som varit nära\n");
+	printf("2) Larm om smitta mottaget\n");
+	printf("3) Meddela om smitta\n");
+	printf("\n");
+	printf("4) Avsluta programmet\n");
+	printf("---------------------------------\n");
+	printf("> ");
+	int m;
+	scanf("%d", &m);
+	return m;
 }
 
 void logDevice(int id)
@@ -23,7 +36,8 @@ void uploadLog()
 int main()
 {	
 	init();
-	printf("Hello World !!!\n");
+	int c = showMenu();
+	printf("choice: %d\n",c);
 	return 0;
 }
 
