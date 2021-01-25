@@ -4,9 +4,8 @@ struct Entry
 {
    int  id;
    int  time;
-};
+} logg[10];
 
-struct Entry log[10];
 
 void init()
 {
@@ -31,9 +30,15 @@ int showMenu()
 	return m;
 }
 
-void logDevice(int id)
+void logDevice()
 {
 	// Add device to list of contacts
+	printf("\n");
+	printf("Ange enhetens id > ");
+	int id;
+	scanf("%d", &id);
+	logg[0].id = id;
+	printf("id:%d",logg[0].id);
 }
 
 void uploadLog()
@@ -49,7 +54,7 @@ int main()
 		switch(showMenu())
 		{
 			case 1:
-				printf("Lägg till\n");
+				logDevice();
 				break;
 			case 2:
 				printf("Larm\n");
