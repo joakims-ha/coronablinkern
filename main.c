@@ -1,5 +1,13 @@
 #include <stdio.h>
 
+struct Entry
+{
+   int  id;
+   int  time;
+};
+
+struct Entry log[10];
+
 void init()
 {
 	// Create unique device id
