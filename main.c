@@ -4,33 +4,18 @@
 */
 #include <stdio.h>
 #include "list.h"
+#include "menu.h"
 
 list device_log;
 
 void init()
 {
 	// Create unique device id
+
+	// Initialize device list 
 	device_log = createList(device_log);
 }
 
-int showMenu()
-{
-	// Display menu and get choice
-	printf("\n");
-	printf("  Välkommen till Coronablinkern\n");
-	printf("=================================\n");
-	printf("1) Lägg till enhet som varit nära\n");
-	printf("2) Larm om smitta mottaget\n");
-	printf("3) Meddela om smitta\n");
-	printf("\n");
-	printf("4) Avsluta programmet\n");
-	printf("---------------------------------\n");
-	printf("> ");
-	int m;
-	scanf("%d", &m);
-	while ((getchar()) != '\n'); 
-	return m;
-}
 
 void logDevice()
 {
@@ -53,7 +38,7 @@ int main()
 	init();
 	while(1)
 	{
-		switch(showMenu())
+		switch(getMenuChoice())
 		{
 			case 1:
 				logDevice();
