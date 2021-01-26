@@ -3,15 +3,19 @@
 	Coronablinker
 */
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "list.h"
 #include "menu.h"
 
+// Global list of all devices in proximity
 list device_log;
 
 void init()
 {
 	// Create unique device id
-
+	srand(time(NULL));
+	printf("Device ID: %d",rand() );
 	// Initialize device list 
 	device_log = createList(device_log);
 }
