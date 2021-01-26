@@ -35,7 +35,17 @@ void addEntry(int id)
 	struct entry* newEntry = (struct entry*) malloc(sizeof(struct entry));
 	newEntry->id = id;
 	time(&newEntry->timestamp);
-	device_log->first=newEntry;
+	newEntry->prev = NULL;
+	if(!device_log->first)
+	{
+		newEntry->next = NULL;
+		device_log->first = newEntry;
+		device_log->last = newEntry;
+	} else {
+		newEntry->next = device_log->last;
+		device_log->last->prev = newEntry;
+		device_log->last = newEntry;
+	}
 }
 
 void showList()
@@ -45,7 +55,7 @@ void showList()
     while (tmp)
     {
         printf("%d %s\n",tmp->id,ctime(&tmp->timestamp));
-        tmp = tmp->next;
+        tmp = tmp->prev;
     }
 }
 
