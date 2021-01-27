@@ -8,14 +8,18 @@
 #include "list.h"
 #include "menu.h"
 
-// Global list of all devices in proximity
+// Global variables
 list device_log;
+int id, code;
 
 void init()
 {
+	// Unlock code
+	code = 123;
 	// Create unique device id
 	srand(time(NULL));
-	printf("Device ID: %d\n",rand() );
+	id = rand();
+	printf("Enhetens ID: %d\n",id);
 	// Initialize device list 
 	device_log = listCreate(device_log);
 }
@@ -23,27 +27,35 @@ void init()
 
 void simContact()
 {
-	// Add device to list of contacts
+	// Simulate device contact
 	printf("\nAnge enhetens id > ");
-	int id;
-	scanf("%d", &id);
-	listAdd(device_log, id);
+	int i;
+	scanf("%d", &i);
+	listAdd(device_log, i);
 }
 
 void simAlert()
 {
-
+	// Simulate alert recival
+	printf("Smittlarm mottaget. Sänder information till servern.\n\n");
+	listShow(device_log);
 }
 
 void reportCase()
 {
-
+	// Report case
+	printf("\nAnge öppningskod > ");
+	int c;
+	scanf("%d", &c);
+	if(c==code)
+	{
+		printf("Öppningskod mottagen. Sänder information till servern.\n\n");
+		listShow(device_log);
+	} else {
+		printf("Felaktig kod!\n");
+	}
 }
 
-void uploadLog()
-{
-	// Send log of devices to server
-}
 
 int main()
 {	
