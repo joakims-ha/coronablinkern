@@ -55,6 +55,7 @@ int main()
 				break;
 			case 4:
 				printf("Hejdå\n");
+				listDestroy(device_log);
 				return 0;
 			case 5:
 				printf("Testing\n");

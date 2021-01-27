@@ -24,6 +24,17 @@ list listCreate()
     return l;
 }
 
+void listDestroy(list l) {
+	struct entry* tmp;
+    while (l->first)
+    {
+        tmp = l->first;
+		l->first = l->first->prev;
+		free(tmp);
+    }
+	free(l);
+}
+
 void listAdd(list l, int id)
 {
 	struct entry* newEntry = (struct entry*) malloc(sizeof(struct entry));
