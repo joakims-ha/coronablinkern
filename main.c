@@ -15,9 +15,9 @@ void init()
 {
 	// Create unique device id
 	srand(time(NULL));
-	printf("Device ID: %d",rand() );
+	printf("Device ID: %d\n",rand() );
 	// Initialize device list 
-	device_log = createList(device_log);
+	device_log = listCreate(device_log);
 }
 
 
@@ -28,8 +28,8 @@ void logDevice()
 	printf("Ange enhetens id > ");
 	int id;
 	scanf("%d", &id);
-	addEntry(device_log, id);
-	showList(device_log);
+	listAdd(device_log, id);
+	listShow(device_log);
 }
 
 void uploadLog()
@@ -56,6 +56,12 @@ int main()
 			case 4:
 				printf("Hejdå\n");
 				return 0;
+			case 5:
+				printf("Testing\n");
+				listAdd(device_log, 1);
+				listAdd(device_log, 2);
+				listShow(device_log);
+				break;
 			default:
 				printf("Felakting val\n");
 		}

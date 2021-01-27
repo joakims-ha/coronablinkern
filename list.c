@@ -16,7 +16,7 @@ struct list_head {
 
 typedef struct list_head* list;
 
-list createList()
+list listCreate()
 {
     list l = (list) malloc(sizeof(struct list_head));
     l->first = NULL;
@@ -24,7 +24,7 @@ list createList()
     return l;
 }
 
-void addEntry(list l, int id)
+void listAdd(list l, int id)
 {
 	struct entry* newEntry = (struct entry*) malloc(sizeof(struct entry));
 	newEntry->id = id;
@@ -35,16 +35,18 @@ void addEntry(list l, int id)
 		newEntry->next = NULL;
 		l->first = newEntry;
 		l->last = newEntry;
-	} else {
+	} else 
+	{
 		newEntry->next = l->last;
 		l->last->prev = newEntry;
 		l->last = newEntry;
 	}
 }
 
-void showList(list l)
+void listShow(list l)
 {
 	struct entry* tmp = l->first;
+	printf("\n");
     while (tmp)
     {
         printf("%d %s",tmp->id,ctime(&tmp->timestamp));
