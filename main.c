@@ -31,7 +31,12 @@ void simContact()
 	printf("\nAnge enhetens id > ");
 	int i;
 	scanf("%d", &i);
-	listAdd(device_log, i);
+	if(i!=0)
+	{
+		listAdd(device_log, i);
+	} else {
+		listAdd(device_log, rand());
+	}
 }
 
 void simAlert()
