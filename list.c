@@ -68,7 +68,7 @@ void listPrune(list l)
 void listShow(list l)
 {
 	struct entry* tmp = l->first;
-	printf("\tID\t\t\tTID\n");
+	printf("\tID\t\t\t\tTID\n");
 	printf("--------------------------------------------------------\n");
     while (tmp)
     {
