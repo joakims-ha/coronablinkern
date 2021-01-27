@@ -6,11 +6,11 @@ int getMenuChoice()
 	printf("\n");
 	printf("  Välkommen till Coronablinkern\n");
 	printf("=================================\n");
-	printf("1) Lägg till enhet som varit nära\n");
-	printf("2) Larm om smitta mottaget\n");
+	printf("1) Simulera kontakt\n");
+	printf("2) Simulera larm\n");
 	printf("3) Meddela om smitta\n");
 	printf("\n");
-	printf("4) Avsluta programmet\n");
+	printf("0) Avsluta programmet\n");
 	printf("---------------------------------\n");
 	printf("> ");
 	int m;
