@@ -21,15 +21,23 @@ void init()
 }
 
 
-void logDevice()
+void simContact()
 {
 	// Add device to list of contacts
-	printf("\n");
-	printf("Ange enhetens id > ");
+	printf("\nAnge enhetens id > ");
 	int id;
 	scanf("%d", &id);
 	listAdd(device_log, id);
-	listShow(device_log);
+}
+
+void simAlert()
+{
+
+}
+
+void reportCase()
+{
+
 }
 
 void uploadLog()
@@ -45,24 +53,21 @@ int main()
 		switch(getMenuChoice())
 		{
 			case 1:
-				logDevice();
+				simContact();
 				break;
 			case 2:
-				printf("Larm\n");
+				simAlert();
 				break;
 			case 3:
-				printf("Meddela\n");
+				reportCase();
 				break;
-			case 4:
+			case 5:
+				listShow(device_log);
+				break;
+			case 0:
 				printf("Hejdå\n");
 				listDestroy(device_log);
 				return 0;
-			case 5:
-				printf("Testing\n");
-				listAdd(device_log, 1);
-				listAdd(device_log, 2);
-				listShow(device_log);
-				break;
 			default:
 				printf("Felakting val\n");
 		}
