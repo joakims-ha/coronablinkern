@@ -54,6 +54,17 @@ void listAdd(list l, int id)
 	}
 }
 
+void listPrune(list l)
+{
+	struct entry* tmp = l->last;
+	printf("\n");
+    while (tmp)
+    {
+        printf("%d %s",tmp->id,ctime(&tmp->timestamp));
+        tmp = tmp->next;
+    }
+}
+
 void listShow(list l)
 {
 	struct entry* tmp = l->first;
