@@ -7,6 +7,7 @@
 #include <time.h>
 #include "list.h"
 #include "menu.h"
+#include "sim.h"
 
 // Global variables
 list device_log;
@@ -21,29 +22,7 @@ void init()
 	id = rand();
 	printf("Enhetens ID: %d\n",id);
 	// Initialize device list 
-	device_log = listCreate(device_log);
-}
-
-
-void simContact()
-{
-	// Simulate device contact
-	printf("\nAnge enhetens id > ");
-	int i;
-	scanf("%d", &i);
-	if(i!=0)
-	{
-		listAdd(device_log, i);
-	} else {
-		listAdd(device_log, rand());
-	}
-}
-
-void simAlert()
-{
-	// Simulate alert recival
-	printf("Smittlarm mottaget. Sänder information till servern.\n\n");
-	listShow(device_log);
+	device_log = listCreate();
 }
 
 void reportCase()
@@ -70,10 +49,10 @@ int main()
 		switch(getMenuChoice())
 		{
 			case M_SIM_CONTACT:
-				simContact();
+				simContact(device_log);
 				break;
 			case M_SIM_ALERT:
-				simAlert();
+				simAlert(device_log);
 				break;
 			case M_REPORT:
 				reportCase();
@@ -83,7 +62,7 @@ int main()
 				listDestroy(device_log);
 				return 0;
 			default:
-				printf("Felakting val\n");
+				printf("Felakting val!\n");
 		}
 		printf("\n");
 	}
