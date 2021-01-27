@@ -8,7 +8,7 @@ int getMenuChoice()
 	printf("=================================\n");
 	printf("1) Simulera kontakt\n");
 	printf("2) Simulera larm\n");
-	printf("3) Meddela om smitta\n");
+	printf("3) Rapportera fall\n");
 	printf("\n");
 	printf("0) Avsluta programmet\n");
 	printf("---------------------------------\n");

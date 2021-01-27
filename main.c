@@ -64,19 +64,16 @@ int main()
 	{
 		switch(getMenuChoice())
 		{
-			case 1:
+			case M_SIM_CONTACT:
 				simContact();
 				break;
-			case 2:
+			case M_SIM_ALERT:
 				simAlert();
 				break;
-			case 3:
+			case M_REPORT:
 				reportCase();
 				break;
-			case 5:
-				listShow(device_log);
-				break;
-			case 0:
+			case M_QUIT:
 				printf("Hejdå\n");
 				listDestroy(device_log);
 				return 0;
