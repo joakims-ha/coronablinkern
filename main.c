@@ -12,6 +12,7 @@
 // Global variables
 list device_log;
 int id, code;
+time_t now;
 
 void init()
 {
@@ -33,13 +34,12 @@ void reportCase()
 	scanf("%d", &c);
 	if(c==code)
 	{
-		printf("Öppningskod mottagen. Sänder information till servern.\n\n");
+		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
 		listShow(device_log);
 	} else {
 		printf("Felaktig kod!\n");
 	}
 }
-
 
 int main()
 {	
@@ -56,6 +56,10 @@ int main()
 				break;
 			case M_REPORT:
 				reportCase();
+				break;
+			case 9:
+				time(&now);
+				listPrune(device_log, now);
 				break;
 			case M_QUIT:
 				printf("Hejdå\n");

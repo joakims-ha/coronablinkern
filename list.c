@@ -5,7 +5,7 @@
 struct entry
 {
     int  id;
-	time_t  timestamp;
+	time_t  date;
     struct entry* prev;
     struct entry* next;
 };
@@ -35,18 +35,19 @@ void listDestroy(list l) {
 	free(l);
 }
 
-void listAdd(list l, int id)
+void listAdd(list l, int id, long int date)
 {
 	struct entry* newEntry = (struct entry*) malloc(sizeof(struct entry));
 	newEntry->id = id;
-	time(&newEntry->timestamp);
+	newEntry->date = date;
 	newEntry->prev = NULL;
 	if(!l->first)
 	{
 		newEntry->next = NULL;
 		l->first = newEntry;
 		l->last = newEntry;
-	} else 
+	}
+	else 
 	{
 		newEntry->next = l->last;
 		l->last->prev = newEntry;
@@ -54,14 +55,21 @@ void listAdd(list l, int id)
 	}
 }
 
-void listPrune(list l)
+void listPrune(list l, long int date)
 {
-	struct entry* tmp = l->last;
-	printf("\n");
-    while (tmp)
+	long int max_age = 3600;
+	struct entry* next = l->first;
+	struct entry* tmp;
+    while (next)
     {
-        printf("%d %s",tmp->id,ctime(&tmp->timestamp));
-        tmp = tmp->next;
+		if((date-next->date)>max_age)
+		{
+			tmp = next;
+			l->first = next->prev;
+			l->first->next = NULL;
+			free(tmp);
+		}
+        next = next->prev;
     }
 }
 
@@ -72,7 +80,7 @@ void listShow(list l)
 	printf("--------------------------------------------------------\n");
     while (tmp)
     {
-        printf("%d\t\t\t%s",tmp->id,ctime(&tmp->timestamp));
+        printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
         tmp = tmp->prev;
     }
 }
