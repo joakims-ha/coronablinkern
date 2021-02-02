@@ -2,7 +2,6 @@
 
 int getMenuChoice()
 {
-	// Display menu and get choice
 	printf("\n");
 	printf("  Välkommen till Coronablinkern\n");
 	printf("=================================\n");

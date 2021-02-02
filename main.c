@@ -1,7 +1,3 @@
-/*  Joakim Salmén 
-    Programmering 2
-	Coronablinker
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -10,7 +6,7 @@
 #include "sim.h"
 
 // Global variables
-list device_log;
+list device_log; /*!< List of devices */
 int id, code;
 time_t now;
 

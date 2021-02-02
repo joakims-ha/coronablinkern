@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "list.h"
 
-
 list listCreate()
 {
     list l = (list) malloc(sizeof(struct list_head));

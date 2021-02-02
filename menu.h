@@ -1,3 +1,4 @@
+/*! \file */ 
 #ifndef MENU
 #define MENU
 
@@ -6,6 +7,10 @@
 #define M_REPORT 3
 #define M_QUIT 0
 
+/*!
+    Function for displaying a menu and getting a choice
+    @returns integer representing menu choice
+*/
 int getMenuChoice();
 
 #endif
