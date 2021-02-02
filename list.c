@@ -1,20 +1,6 @@
-#include <time.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include "list.h"
 
-struct entry
-{
-    int  id;
-	time_t  date;
-    struct entry* prev;
-    struct entry* next;
-};
-struct list_head {
-    struct entry* first;
-    struct entry* last;
-};
-
-typedef struct list_head* list;
 
 list listCreate()
 {
@@ -70,17 +56,5 @@ void listPrune(list l, long int date)
 			free(tmp);
 		}
         next = next->prev;
-    }
-}
-
-void listShow(list l)
-{
-	struct entry* tmp = l->first;
-	printf("\tID\t\t\t\tTID\n");
-	printf("--------------------------------------------------------\n");
-    while (tmp)
-    {
-        printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
-        tmp = tmp->prev;
     }
 }
