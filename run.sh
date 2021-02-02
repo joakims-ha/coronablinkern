@@ -1,1 +1,0 @@
-gcc main.c menu.c list.c sim.c && ./a.out
