@@ -35,11 +35,19 @@ void reportCase()
 	if(c==code)
 	{
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
-		listShow(device_log);
+		struct entry* tmp = device_log->first;
+		printf("\tID\t\t\t\tTID\n");
+		printf("--------------------------------------------------------\n");
+		while (tmp)
+		{
+			printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
+			tmp = tmp->prev;
+		}
 	} else {
 		printf("Felaktig kod!\n");
 	}
 }
+
 
 int main()
 {	

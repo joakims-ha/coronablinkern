@@ -29,5 +29,12 @@ void simAlert(list l)
 {
 	// Simulate receiving alert
 	printf("\nSmittlarm mottaget. Sänder information till servern.\n\n");
-	listShow(l);
+	struct entry* tmp = l->first;
+	printf("\tID\t\t\t\tTID\n");
+	printf("--------------------------------------------------------\n");
+    while (tmp)
+    {
+        printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
+        tmp = tmp->prev;
+    }
 }
