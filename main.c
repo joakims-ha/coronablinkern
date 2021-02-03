@@ -1,26 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "config.h"
 #include "list.h"
 #include "menu.h"
 #include "sim.h"
 
 // Global variables
-list device_log; /*!< List of devices */
-int id, code;
+list device_log;
 time_t now;
-
-void init()
-{
-	// Unlock code
-	code = 123;
-	// Create unique device id
-	srand(time(NULL));
-	id = rand();
-	printf("Enhetens ID: %d\n",id);
-	// Initialize device list 
-	device_log = listCreate();
-}
 
 void reportCase()
 {
@@ -28,7 +16,7 @@ void reportCase()
 	printf("\nAnge öppningskod > ");
 	int c;
 	scanf("%d", &c);
-	if(c==code)
+	if(c==DEVICE_CODE)
 	{
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
 		struct entry* tmp = device_log->first;
@@ -47,7 +35,7 @@ void reportCase()
 
 int main()
 {	
-	init();
+	device_log = listCreate();
 	while(1)
 	{
 		switch(getMenuChoice())
