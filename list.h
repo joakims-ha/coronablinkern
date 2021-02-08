@@ -2,57 +2,53 @@
 #ifndef LIST
 #define LIST
 
-/*! \struct entry
-    \brief List Entry.
-    Entry to be added to a list.
+/*! \typedef list_item
+    \brief List item
 */
-struct entry
+typedef struct list_item
 {
     int  id;
 	time_t  date;
-    struct entry* prev;
-    struct entry* next;
-};
+    struct list_item* prev;
+    struct list_item* next;
+}
+list_item;
 
-/*! \struct list_head
-    \brief List Header.
-    List header used to access first and last entry of a list.
+/*! \typedef list_t
+    \brief List type
 */
-struct list_head {
-    struct entry* first;
-    struct entry* last;
-};
-
-typedef struct list_head* list;
+typedef struct list_t
+{
+    list_item* first;
+    list_item* last;
+}
+*list_t;
 
 /*!
     Function for creating a new empty list.
-    @returns a new empty list.
+    @returns A new empty list.
 */
-list listCreate();
+list_t listCreate();
 
 /*!
     Function for destroying a list.
-    @param list the list to destroy.
-    @returns nothing.
+    @param list The list to destroy.
 */
-void listDestroy(list l);
+void listDestroy(list_t list);
 
 /*!
-    Function for adding a new entry to a list
-    @param list the list to add to.
-    @param id id of new entry.
-    @param date timestamp of new entry.
-    @returns nothing.
+    Function for adding a new item to a list
+    @param list The list to add new item to.
+    @param id Id number of the new entry.
+    @param date Timestamp of the new entry.
 */
-void listAdd(list l, int id, long int date);
+void listAdd(list_t list, int id, long int date);
 
 /*!
-    Function for removing old entries from a list
-    @param list the list remove from.
-    @param date timestamp of oldest entries to keep.
-    @returns nothing.
+    Function for removing old items from a list
+    @param list The list to remove old items from.
+    @param age Max age of items to keep in seconds.
 */
-void listPrune(list l, long int date);
+void listPrune(list_t list, long int age);
 
 #endif

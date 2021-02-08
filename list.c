@@ -1,59 +1,58 @@
 #include <stdlib.h>
 #include "list.h"
 
-list listCreate()
+list_t listCreate()
 {
-    list l = (list) malloc(sizeof(struct list_head));
-    l->first = NULL;
-    l->last = NULL;
-    return l;
+    list_t newList = malloc(sizeof(list_t));
+    newList->first = NULL;
+    newList->last = NULL;
+    return newList;
 }
 
-void listDestroy(list l) {
-	struct entry* tmp;
-    while (l->first)
+void listDestroy(list_t list) {
+	list_item *tmpItem;
+    while (list->first)
     {
-        tmp = l->first;
-		l->first = l->first->prev;
-		free(tmp);
+        tmpItem = list->first;
+		list->first = list->first->prev;
+		free(tmpItem);
     }
-	free(l);
+	free(list);
 }
 
-void listAdd(list l, int id, long int date)
+void listAdd(list_t list, int id, long int date)
 {
-	struct entry* newEntry = (struct entry*) malloc(sizeof(struct entry));
-	newEntry->id = id;
-	newEntry->date = date;
-	newEntry->prev = NULL;
-	if(!l->first)
+	list_item *newItem = malloc(sizeof(list_item));
+	newItem->id = id;
+	newItem->date = date;
+	newItem->prev = NULL;
+	if(!list->first)
 	{
-		newEntry->next = NULL;
-		l->first = newEntry;
-		l->last = newEntry;
+		newItem->next = NULL;
+		list->first = newItem;
+		list->last = newItem;
 	}
 	else 
 	{
-		newEntry->next = l->last;
-		l->last->prev = newEntry;
-		l->last = newEntry;
+		newItem->next = list->last;
+		list->last->prev = newItem;
+		list->last = newItem;
 	}
 }
 
-void listPrune(list l, long int date)
+void listPrune(list_t list, long int age)
 {
-	long int max_age = 3600;
-	struct entry* next = l->first;
-	struct entry* tmp;
-    while (next)
+	list_item *nextItem = list->first;
+	list_item *tmpItem;
+    while (nextItem)
     {
-		if((date-next->date)>max_age)
+		if(nextItem->date>age)
 		{
-			tmp = next;
-			l->first = next->prev;
-			l->first->next = NULL;
-			free(tmp);
+			tmpItem = nextItem;
+			list->first = nextItem->prev;
+			list->first->next = NULL;
+			free(tmpItem);
 		}
-        next = next->prev;
+        nextItem = nextItem->prev;
     }
 }
