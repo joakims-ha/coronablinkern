@@ -8,7 +8,7 @@
 typedef struct list_item
 {
     int  id;
-	time_t  date;
+	long int  date;
     struct list_item* prev;
     struct list_item* next;
 }
