@@ -1,4 +1,5 @@
 .vscode
 *.o
 coronablinker
+test
 /latex
