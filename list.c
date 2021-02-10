@@ -1,20 +1,18 @@
-#include <stdlib.h>
 #include "list.h"
 
 list_t listCreate()
 {
     list_t newList = malloc(sizeof(list_t));
-    newList->first = NULL;
-    newList->last = NULL;
+    newList->start = NULL;
     return newList;
 }
 
 void listDestroy(list_t list) {
-	list_item *tmpItem;
-    while (list->first)
+	list_i *tmpItem;
+    while (list->start)
     {
-        tmpItem = list->first;
-		list->first = list->first->prev;
+        tmpItem = list->start;
+		list->start = list->start->next;
 		free(tmpItem);
     }
 	free(list);
@@ -22,37 +20,70 @@ void listDestroy(list_t list) {
 
 void listAdd(list_t list, int id, long int date)
 {
-	list_item *newItem = malloc(sizeof(list_item));
+	list_i *newItem = malloc(sizeof(list_i));
 	newItem->id = id;
 	newItem->date = date;
-	newItem->prev = NULL;
-	if(!list->first)
+	if(!list->start)
 	{
 		newItem->next = NULL;
-		list->first = newItem;
-		list->last = newItem;
+		list->start = newItem;
 	}
 	else 
 	{
-		newItem->next = list->last;
-		list->last->prev = newItem;
-		list->last = newItem;
+		newItem->next = list->start;
+		list->start = newItem;
 	}
 }
 
 void listPrune(list_t list, long int age)
 {
-	list_item *nextItem = list->first;
-	list_item *tmpItem;
-    while (nextItem)
-    {
-		if(nextItem->date>age)
+	if(!listIsEmpty(list))
+	{
+		list_i *item = list->start;
+		list_i *tmpItem;
+		while (item&&item->date>age)
 		{
-			tmpItem = nextItem;
-			list->first = nextItem->prev;
-			list->first->next = NULL;
+			tmpItem = item;
+			list->start = item->next;
 			free(tmpItem);
+			item = item->next;
 		}
-        nextItem = nextItem->prev;
-    }
+		while (item)
+		{
+			if(item->date>age)
+			{
+				tmpItem = item;
+				item = item->next;
+				free(tmpItem);
+			}
+			else
+			{
+				item = item->next;
+			}
+		}
+	}
+}
+
+bool listIsEmpty(list_t list)
+{
+	if(list->start)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+int listLength(list_t list)
+{
+	list_i *item = list->start;
+	int counter = 0;
+	while (item)
+	{
+		counter++;
+		item = item->next;
+	}
+	return counter;
 }
