@@ -1,9 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "list.h"
+#include "sim.h"
 
-void simContact(list l)
+void simContact(list_t list)
 {
 	// Simulate device contact
 	printf("\nAnge enhetens id > ");
@@ -19,22 +16,22 @@ void simContact(list l)
 
 	if(i!=0)
 	{
-		listAdd(l, i, now);
+		listAdd(list, i, now);
 	} else {
-		listAdd(l, rand(), now-(a*3600));
+		listAdd(list, rand(), now-(a*3600));
 	}
 }
 
-void simAlert(list l)
+void simAlert(list_t list)
 {
 	// Simulate receiving alert
 	printf("\nSmittlarm mottaget. Sänder information till servern.\n\n");
-	struct entry* tmp = l->first;
+	list_i *item = list->start;
 	printf("\tID\t\t\t\tTID\n");
 	printf("--------------------------------------------------------\n");
-    while (tmp)
+    while (item)
     {
-        printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
-        tmp = tmp->prev;
+        printf("%d\t\t\t%s",item->id,ctime(&item->date));
+        item = item->next;
     }
 }

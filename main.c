@@ -7,7 +7,7 @@
 #include "sim.h"
 
 // Global variables
-list device_log;
+list_t devices;
 time_t now;
 
 void reportCase()
@@ -19,13 +19,13 @@ void reportCase()
 	if(c==DEVICE_CODE)
 	{
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
-		struct entry* tmp = device_log->first;
+		list_i *item = devices->start;
 		printf("\tID\t\t\t\tTID\n");
 		printf("--------------------------------------------------------\n");
-		while (tmp)
+		while (item)
 		{
-			printf("%d\t\t\t%s",tmp->id,ctime(&tmp->date));
-			tmp = tmp->prev;
+			printf("%d\t\t\t%s",item->id,ctime(&item->date));
+			item = item->next;
 		}
 	} else {
 		printf("Felaktig kod!\n");
@@ -35,27 +35,27 @@ void reportCase()
 
 int main()
 {	
-	device_log = listCreate();
+	devices = listCreate();
 	while(1)
 	{
 		switch(getMenuChoice())
 		{
 			case M_SIM_CONTACT:
-				simContact(device_log);
+				simContact(devices);
 				break;
 			case M_SIM_ALERT:
-				simAlert(device_log);
+				simAlert(devices);
 				break;
 			case M_REPORT:
 				reportCase();
 				break;
 			case 9:
 				time(&now);
-				listPrune(device_log, now);
+				listPrune(devices, now);
 				break;
 			case M_QUIT:
 				printf("Hejdå\n");
-				listDestroy(device_log);
+				listDestroy(devices);
 				return 0;
 			default:
 				printf("Felakting val!\n");
