@@ -39,6 +39,7 @@ void reportCase()
 
 int main()
 {	
+	printf("\n --== Välkommen till Coronablinkern ==--\n             ## v0.1 ##\n");
 	devices = listCreate();
 	while(1)
 	{
