@@ -34,10 +34,12 @@ void menuAdd(menu_t *menu, int type, char *text);
 
 void menuShow(menu_t *menu);
 
+int menuChoice(menu_t *menu);
+
 void uiShowList(list_t list);
 
 int uiUserInput(char *prompt);
 
-int getMenuChoice();
+int menuChoice();
 
 #endif

@@ -31,7 +31,7 @@ void simContact(list_t list)
 
 void simAlert(list_t list)
 {
-	printf("\nSmittlarm mottaget. Sänder information till servern.\n\n");
+	printf("\nSmittlarm mottaget. Meddelar servern.\n\n");
 	uiShowList(list);
 }
 

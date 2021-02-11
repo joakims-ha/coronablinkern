@@ -8,11 +8,20 @@
 
 int main()
 {	
+	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
+	menuAdd(main_menu,1,"Simulera kontakt");
+	menuAdd(main_menu,1,"Simulera larm");
+	menuAdd(main_menu,1,"Rapportera fall");
+
+	// menu_t *sim_menu = menuCreate(main_menu,"Simulering");
+	// menuAdd(sim_menu,1,"Simulera kontakt");
+	// menuAdd(sim_menu,1,"Simulera larm");
+
 	printf("\n --== Välkommen till Coronablinkern ==--\n             ## v0.1 ##\n");
 	list_t devices = listCreate();
 	while(1)
 	{
-		switch(getMenuChoice())
+		switch(menuChoice(main_menu))
 		{
 			case M_SIM_CONTACT:
 				simContact(devices);
@@ -23,7 +32,7 @@ int main()
 			case M_REPORT:
 				if(uiUserInput("Ange öppningskod > ")==DEVICE_CODE)
 				{
-					simCase(devices);
+					if(!listIsEmpty(devices)) simCase(devices);
 				}
 				else
 				{

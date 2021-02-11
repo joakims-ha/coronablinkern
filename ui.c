@@ -54,6 +54,12 @@ void menuShow(menu_t *menu)
 
 }
 
+int menuChoice(menu_t *menu)
+{
+	menuShow(menu);
+	return uiUserInput("-> ");
+}
+
 void uiShowList(list_t list)
 {
     	list_i *item = list->start;
@@ -78,23 +84,5 @@ int uiUserInput(char *prompt)
 	scanf("%d", &m);
     flush();
 	return m;
-}
-
-// Old code
-int getMenuChoice()
-{
-    
-	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
-	menuAdd(main_menu,1,"Simulera kontakt");
-	menuAdd(main_menu,1,"Simulera larm");
-    menuAdd(main_menu,1,"Rapportera fall");
-    
-    // menu_t *sim_menu = menuCreate(main_menu,"Simulering");
-	// menuAdd(sim_menu,1,"Simulera kontakt");
-	// menuAdd(sim_menu,1,"Simulera larm");
-
-	menuShow(main_menu);
-
-	return uiUserInput("-> ");
 }
 
