@@ -25,7 +25,7 @@ void listAdd(list_t list, int id, long int date)
 	newItem->id = id;
 	newItem->date = date;
 	newItem->prev = NULL;
-	if(!list->start)
+	if(listIsEmpty(list))
 	{
 		newItem->next = NULL;
 		list->start = newItem;
