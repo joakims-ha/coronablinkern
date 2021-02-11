@@ -45,6 +45,11 @@ void menuShow(menu_t *menu)
 // Old code
 int getMenuChoice()
 {
+    
+	menu_t *main_menu = menuCreate(NULL,"Main menu");
+	menuAdd(main_menu,1,"choice 1");
+	menuAdd(main_menu,1,"choice 2");
+	menuShow(main_menu);
 	printf("\n");
 	printf("  Välkommen till Coronablinkern\n");
 	printf("=================================\n");

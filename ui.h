@@ -29,5 +29,6 @@ void menuAdd(menu_t *menu, int type, char *text);
 
 void menuShow(menu_t *menu);
 
+int getMenuChoice();
 
 #endif
