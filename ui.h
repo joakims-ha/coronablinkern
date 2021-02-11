@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define M_SIM_CONTACT 1
+#define M_SIM_ALERT 2
+#define M_REPORT 3
+#define M_QUIT 0
+
 typedef struct menu_i {
     int type;
     char *text;
