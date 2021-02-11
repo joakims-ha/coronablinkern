@@ -36,6 +36,8 @@ void menuShow(menu_t *menu);
 
 void uiShowList(list_t list);
 
+int uiUserInput(char *prompt);
+
 int getMenuChoice();
 
 #endif

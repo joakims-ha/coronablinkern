@@ -1,18 +1,14 @@
 #include "sim.h"
 
-void flush()
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
+// void flush()
+// {
+//     int c;
+//     while ((c = getchar()) != '\n' && c != EOF);
+// }
 
 void simContact(list_t list)
 {
-	// Simulate device contact
-	printf("\nAnge enhetens id > ");
-	int i;
-	scanf("%d", &i);
-	flush();
+	int i = uiUserInput("Ange enhetens id > ");
 
 	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
 	char d[18];

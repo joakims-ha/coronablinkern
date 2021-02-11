@@ -57,8 +57,7 @@ void menuShow(menu_t *menu)
 void uiShowList(list_t list)
 {
     	list_i *item = list->start;
-		printf("\tID\t\t\t\tTID\n");
-		printf("--------------------------------------------------------\n");
+		printf("\tID\t\t\t\tTID\n\n");
 		while (item)
 		{
 			printf("%d\t\t\t%s",item->id,ctime(&item->date));
@@ -66,12 +65,18 @@ void uiShowList(list_t list)
 		}
 }
 
-int getUserInput()
+void flush()
 {
-    int m;
-    printf("\n=> ");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int uiUserInput(char *prompt)
+{
+    int c, m;
+    printf("\n%s",prompt);
 	scanf("%d", &m);
-	while ((getchar()) != '\n'); 
+    flush();
 	return m;
 }
 
@@ -90,6 +95,6 @@ int getMenuChoice()
 
 	menuShow(main_menu);
 
-	return getUserInput();
+	return uiUserInput("-> ");
 }
 

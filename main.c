@@ -20,7 +20,7 @@ void reportCase()
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
 		time_t now;
 		time(&now);
-		long int max = now-(21*24*60*60);
+		long int max = now-(MAX_AGE*24*60*60);
 		listPrune(devices, max);
 		uiShowList(devices);
 	} else {
