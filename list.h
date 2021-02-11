@@ -11,8 +11,9 @@
 typedef struct list_i
 {
     int  id;
-	long int  date;
-    struct list_i* next;
+    long int  date;
+    struct list_i *next;
+    struct list_i *prev;
 }
 list_i;
 
@@ -21,7 +22,7 @@ list_i;
  */
 typedef struct list_t
 {
-    list_i* start;
+    list_i *start;
 }
 *list_t;
 

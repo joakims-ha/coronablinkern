@@ -19,18 +19,18 @@ void list_add(void)
     CU_ASSERT_FALSE(listIsEmpty(list))
     CU_ASSERT_TRUE(listLength(list)==1);
     CU_ASSERT(list->start->id==1&&list->start->date==3);
-    listAdd(list,2,2);
-    listAdd(list,3,1);
+    listAdd(list,2,1);
+    listAdd(list,3,2);
     listAdd(list,4,4);
     CU_ASSERT_TRUE(listLength(list)==4);
 }
 
 void list_prune(void)
 {   
-    listPrune(list,3);
+    listPrune(list,2);
     CU_ASSERT_TRUE(listLength(list)==3);
-    CU_ASSERT(list->start->id==3);
-    listPrune(list,0);
+    CU_ASSERT(list->start->id==4);
+    listPrune(list,5);
     CU_ASSERT_TRUE(listIsEmpty(list))
 }
 

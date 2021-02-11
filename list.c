@@ -1,4 +1,5 @@
 #include "list.h"
+#include <stdio.h>
 
 list_t listCreate()
 {
@@ -23,6 +24,7 @@ void listAdd(list_t list, int id, long int date)
 	list_i *newItem = malloc(sizeof(list_i));
 	newItem->id = id;
 	newItem->date = date;
+	newItem->prev = NULL;
 	if(!list->start)
 	{
 		newItem->next = NULL;
@@ -30,6 +32,7 @@ void listAdd(list_t list, int id, long int date)
 	}
 	else 
 	{
+		list->start->prev = newItem;
 		newItem->next = list->start;
 		list->start = newItem;
 	}
@@ -37,28 +40,41 @@ void listAdd(list_t list, int id, long int date)
 
 void listPrune(list_t list, long int age)
 {
+
 	if(!listIsEmpty(list))
 	{
 		list_i *item = list->start;
 		list_i *tmpItem;
-		while (item&&item->date>age)
-		{
-			tmpItem = item;
-			list->start = item->next;
-			free(tmpItem);
-			item = item->next;
-		}
 		while (item)
 		{
-			if(item->date>age)
+			if(item->prev)
 			{
-				tmpItem = item;
-				item = item->next;
-				free(tmpItem);
+				if(item->date<age)
+				{
+					tmpItem = item;
+					item->prev->next = item->next;
+					item = item->next;
+					free(tmpItem);
+				}
+				else
+				{
+					item = item->next;
+				}
 			}
 			else
 			{
-				item = item->next;
+				if(item->date<age)
+				{
+					tmpItem = item;
+					list->start = item->next;
+					if(list->start) list->start->prev = NULL;
+					item = item->next;
+					free(tmpItem);
+				}
+				else
+				{
+					item = item->next;
+				}
 			}
 		}
 	}

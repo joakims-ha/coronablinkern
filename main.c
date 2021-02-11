@@ -19,6 +19,11 @@ void reportCase()
 	if(c==DEVICE_CODE)
 	{
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
+		time_t now;
+		time(&now);
+		long int max = (21*24*60*60);
+		long int limit = now-max;
+		listPrune(devices, limit);
 		list_i *item = devices->start;
 		printf("\tID\t\t\t\tTID\n");
 		printf("--------------------------------------------------------\n");
@@ -31,7 +36,6 @@ void reportCase()
 		printf("Felaktig kod!\n");
 	}
 }
-
 
 int main()
 {	
@@ -48,10 +52,6 @@ int main()
 				break;
 			case M_REPORT:
 				reportCase();
-				break;
-			case 9:
-				time(&now);
-				listPrune(devices, now);
 				break;
 			case M_QUIT:
 				printf("Hejdå\n");

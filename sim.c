@@ -1,24 +1,40 @@
 #include "sim.h"
 
+void flush()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 void simContact(list_t list)
 {
 	// Simulate device contact
 	printf("\nAnge enhetens id > ");
 	int i;
 	scanf("%d", &i);
+	flush();
+
+	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
+	char d[18];
+	fgets(d, 18, stdin);
 	
-	printf("\nAnge ålder i timmar > ");
-	int a;
-	scanf("%d", &a);
-
-	time_t now;
-	time(&now);
-
-	if(i!=0)
+	struct tm tm;
+	time_t epoch;
+	if (strptime(d, "%y-%m-%d %H:%M:%S", &tm) != 0)
 	{
-		listAdd(list, i, now);
-	} else {
-		listAdd(list, rand(), now-(a*3600));
+		epoch = mktime(&tm);
+		if(i!=0)
+		{
+			listAdd(list, i, epoch);
+		} 
+		else 
+		{
+			listAdd(list, rand(), epoch);
+		}
+	}
+	else
+	{
+		printf("\nOgiltigt datum!");
 	}
 }
 
@@ -35,3 +51,4 @@ void simAlert(list_t list)
         item = item->next;
     }
 }
+
