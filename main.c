@@ -5,6 +5,7 @@
 #include "list.h"
 #include "menu.h"
 #include "sim.h"
+#include "ui.h"
 
 // Global variables
 list_t devices;
@@ -39,28 +40,33 @@ void reportCase()
 
 int main()
 {	
-	devices = listCreate();
-	while(1)
-	{
-		switch(getMenuChoice())
-		{
-			case M_SIM_CONTACT:
-				simContact(devices);
-				break;
-			case M_SIM_ALERT:
-				simAlert(devices);
-				break;
-			case M_REPORT:
-				reportCase();
-				break;
-			case M_QUIT:
-				printf("Hejdå\n");
-				listDestroy(devices);
-				return 0;
-			default:
-				printf("Felakting val!\n");
-		}
-		printf("\n");
-	}
+	menu_t *main_menu = menuCreate(NULL,"Main menu");
+	menuAdd(main_menu,1,"choice 1");
+	menuAdd(main_menu,1,"choice 2");
+	menuShow(main_menu);
+
+	// devices = listCreate();
+	// while(1)
+	// {
+	// 	switch(getMenuChoice())
+	// 	{
+	// 		case M_SIM_CONTACT:
+	// 			simContact(devices);
+	// 			break;
+	// 		case M_SIM_ALERT:
+	// 			simAlert(devices);
+	// 			break;
+	// 		case M_REPORT:
+	// 			reportCase();
+	// 			break;
+	// 		case M_QUIT:
+	// 			printf("Hejdå\n");
+	// 			listDestroy(devices);
+	// 			return 0;
+	// 		default:
+	// 			printf("Felakting val!\n");
+	// 	}
+	// 	printf("\n");
+	// }
 }
 

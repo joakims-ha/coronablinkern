@@ -20,6 +20,7 @@ void simContact(list_t list)
 	
 	struct tm tm;
 	time_t epoch;
+	// need check for leap year
 	if (strptime(d, "%y-%m-%d %H:%M:%S", &tm) != 0)
 	{
 		epoch = mktime(&tm);

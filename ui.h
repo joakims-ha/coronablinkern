@@ -2,15 +2,23 @@
 #ifndef UI
 #define UI
 
+#include <stdio.h>
 #include <stdlib.h>
 
+typedef struct menu_i {
+    int type;
+    char *text;
+    struct menu_i *next;
+}menu_i;
+
 typedef struct menu_t {
-    struct menu_t *first;
+    char *title;
+    struct menu_i *first;
 
 }menu_t;
 
 
-menu_t *menuCreate(menu_t *parent);
+menu_t *menuCreate(menu_t *parent, char *title);
 
 void menuAdd(menu_t *menu, int type, char *text);
 
