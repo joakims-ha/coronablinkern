@@ -43,13 +43,5 @@ void simAlert(list_t list)
 {
 	// Simulate receiving alert
 	printf("\nSmittlarm mottaget. Sänder information till servern.\n\n");
-	list_i *item = list->start;
-	printf("\tID\t\t\t\tTID\n");
-	printf("--------------------------------------------------------\n");
-    while (item)
-    {
-        printf("%d\t\t\t%s",item->id,ctime(&item->date));
-        item = item->next;
-    }
+	uiShowList(list);
 }
-

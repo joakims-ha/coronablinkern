@@ -54,6 +54,18 @@ void menuShow(menu_t *menu)
 
 }
 
+void uiShowList(list_t list)
+{
+    	list_i *item = list->start;
+		printf("\tID\t\t\t\tTID\n");
+		printf("--------------------------------------------------------\n");
+		while (item)
+		{
+			printf("%d\t\t\t%s",item->id,ctime(&item->date));
+			item = item->next;
+		}
+}
+
 int getUserInput()
 {
     int m;
@@ -80,3 +92,4 @@ int getMenuChoice()
 
 	return getUserInput();
 }
+

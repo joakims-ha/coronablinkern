@@ -4,6 +4,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+#include "list.h"
+
+#define M_SIM_CONTACT 1
+#define M_SIM_ALERT 2
+#define M_REPORT 3
+#define M_QUIT 0
 
 #define M_SUBMENU = 5
 typedef struct menu_i {
@@ -25,6 +33,8 @@ menu_t *menuCreate(menu_t *parent, char *title);
 void menuAdd(menu_t *menu, int type, char *text);
 
 void menuShow(menu_t *menu);
+
+void uiShowList(list_t list);
 
 int getMenuChoice();
 

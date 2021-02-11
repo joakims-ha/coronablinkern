@@ -8,6 +8,7 @@
 #define __USE_XOPEN
 #include <time.h>
 #include "list.h"
+#include "ui.h"
 
 /*!
  *  Function for simulating contact

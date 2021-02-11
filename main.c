@@ -8,7 +8,6 @@
 
 // Global variables
 list_t devices;
-time_t now;
 
 void reportCase()
 {
@@ -21,17 +20,9 @@ void reportCase()
 		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
 		time_t now;
 		time(&now);
-		long int max = (21*24*60*60);
-		long int limit = now-max;
-		listPrune(devices, limit);
-		list_i *item = devices->start;
-		printf("\tID\t\t\t\tTID\n");
-		printf("--------------------------------------------------------\n");
-		while (item)
-		{
-			printf("%d\t\t\t%s",item->id,ctime(&item->date));
-			item = item->next;
-		}
+		long int max = now-(21*24*60*60);
+		listPrune(devices, max);
+		uiShowList(devices);
 	} else {
 		printf("Felaktig kod!\n");
 	}
