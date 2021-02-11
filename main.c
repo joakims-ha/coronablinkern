@@ -6,32 +6,10 @@
 #include "sim.h"
 #include "ui.h"
 
-// Global variables
-list_t devices;
-
-void reportCase()
-{
-	// Report case
-	printf("\nAnge öppningskod > ");
-	int c;
-	scanf("%d", &c);
-	if(c==DEVICE_CODE)
-	{
-		printf("\nÖppningskod mottagen. Sänder information till servern.\n\n");
-		time_t now;
-		time(&now);
-		long int max = now-(MAX_AGE*24*60*60);
-		listPrune(devices, max);
-		uiShowList(devices);
-	} else {
-		printf("Felaktig kod!\n");
-	}
-}
-
 int main()
 {	
 	printf("\n --== Välkommen till Coronablinkern ==--\n             ## v0.1 ##\n");
-	devices = listCreate();
+	list_t devices = listCreate();
 	while(1)
 	{
 		switch(getMenuChoice())
@@ -43,7 +21,14 @@ int main()
 				simAlert(devices);
 				break;
 			case M_REPORT:
-				reportCase();
+				if(uiUserInput("Ange öppningskod > ")==DEVICE_CODE)
+				{
+					simCase(devices);
+				}
+				else
+				{
+					printf("\nFelaktig kod!\n");
+				}
 				break;
 			case M_QUIT:
 				printf("Hejdå\n");

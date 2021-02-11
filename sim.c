@@ -1,11 +1,5 @@
 #include "sim.h"
 
-// void flush()
-// {
-//     int c;
-//     while ((c = getchar()) != '\n' && c != EOF);
-// }
-
 void simContact(list_t list)
 {
 	int i = uiUserInput("Ange enhetens id > ");
@@ -37,7 +31,18 @@ void simContact(list_t list)
 
 void simAlert(list_t list)
 {
-	// Simulate receiving alert
 	printf("\nSmittlarm mottaget. Sänder information till servern.\n\n");
+	uiShowList(list);
+}
+
+void simCase(list_t list)
+{
+	printf("\nÖppningskod mottagen:\n");
+	printf("- Tar bort föråldrade kontakter\n");
+	time_t now;
+	time(&now);
+	long int max = now-(MAX_AGE*24*60*60);
+	listPrune(list, max);
+	printf("- Sänder information till servern\n");
 	uiShowList(list);
 }

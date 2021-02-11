@@ -7,6 +7,7 @@
 
 #define __USE_XOPEN
 #include <time.h>
+#include "config.h"
 #include "list.h"
 #include "ui.h"
 
@@ -21,5 +22,11 @@ void simContact(list_t list);
  *  @param list list of devices
 */
 void simAlert(list_t list);
+
+/*!
+ *  Function for simulating case
+ *  @param list list of devices
+*/
+void simCase(list_t list);
 
 #endif

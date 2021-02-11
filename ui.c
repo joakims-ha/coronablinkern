@@ -57,10 +57,10 @@ void menuShow(menu_t *menu)
 void uiShowList(list_t list)
 {
     	list_i *item = list->start;
-		printf("\tID\t\t\t\tTID\n\n");
+		printf("\n--| Contact list |--\n\n");
 		while (item)
 		{
-			printf("%d\t\t\t%s",item->id,ctime(&item->date));
+			printf("[%d] %s",item->id,ctime(&item->date));
 			item = item->next;
 		}
 }
@@ -89,9 +89,9 @@ int getMenuChoice()
 	menuAdd(main_menu,1,"Simulera larm");
     menuAdd(main_menu,1,"Rapportera fall");
     
-    menu_t *sim_menu = menuCreate(main_menu,"Simulering");
-	menuAdd(sim_menu,1,"Simulera kontakt");
-	menuAdd(sim_menu,1,"Simulera larm");
+    // menu_t *sim_menu = menuCreate(main_menu,"Simulering");
+	// menuAdd(sim_menu,1,"Simulera kontakt");
+	// menuAdd(sim_menu,1,"Simulera larm");
 
 	menuShow(main_menu);
 
