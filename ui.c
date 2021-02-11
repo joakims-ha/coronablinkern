@@ -1,9 +1,10 @@
 #include "ui.h"
 
 menu_t *menuCreate(menu_t *parent, char *title){    
-    menu_t *menu = malloc(sizeof(menu_t));
-    menu->title = title;
-    return menu;
+    menu_t *newMenu = malloc(sizeof(menu_t));
+    newMenu->parent = parent;
+    newMenu->title = title;
+    return newMenu;
 }
 
 void menuAdd(menu_t *menu, int type, char *text)
@@ -30,36 +31,33 @@ void menuAdd(menu_t *menu, int type, char *text)
 
 void menuShow(menu_t *menu)
 {
-    printf("## %s ##\n",menu->title);
+    printf("\n-[ %s ]-\n\n",menu->title);
     if(menu->first)
     {
+        int count = 1;
         menu_i *item = menu->first;
         while(item)
         {
-            printf("-- %s\n",item->text);
+            printf("%i} %s\n",count, item->text);
             item = item->next;
+            count++;
         }
     }
+	printf("\n0] Avsluta programmet\n");
+
 }
 
 // Old code
 int getMenuChoice()
 {
     
-	menu_t *main_menu = menuCreate(NULL,"Main menu");
-	menuAdd(main_menu,1,"choice 1");
-	menuAdd(main_menu,1,"choice 2");
+	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
+	menuAdd(main_menu,1,"Simulera kontakt");
+	menuAdd(main_menu,1,"Simulera larm");
+    menuAdd(main_menu,1,"Rapportera fall");
+    
 	menuShow(main_menu);
-	printf("\n");
-	printf("  Välkommen till Coronablinkern\n");
-	printf("=================================\n");
-	printf("1) Simulera kontakt\n");
-	printf("2) Simulera larm\n");
-	printf("3) Rapportera fall\n");
-	printf("\n");
-	printf("0) Avsluta programmet\n");
-	printf("---------------------------------\n");
-	printf("> ");
+	printf("\n=> ");
 	int m;
 	scanf("%d", &m);
 	while ((getchar()) != '\n'); 

@@ -18,6 +18,7 @@ typedef struct menu_i {
 
 typedef struct menu_t {
     char *title;
+    struct menu_t *parent;
     struct menu_i *first;
 
 }menu_t;
