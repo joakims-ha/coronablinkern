@@ -43,8 +43,24 @@ void menuShow(menu_t *menu)
             count++;
         }
     }
-	printf("\n0] Avsluta programmet\n");
+    if(menu->parent)
+    {
+        printf("\n0] Gå bakåt\n");
+    }
+    else
+    {
+        printf("\n0] Avsluta programmet\n");
+    }
 
+}
+
+int getUserInput()
+{
+    int m;
+    printf("\n=> ");
+	scanf("%d", &m);
+	while ((getchar()) != '\n'); 
+	return m;
 }
 
 // Old code
@@ -56,10 +72,11 @@ int getMenuChoice()
 	menuAdd(main_menu,1,"Simulera larm");
     menuAdd(main_menu,1,"Rapportera fall");
     
+    menu_t *sim_menu = menuCreate(main_menu,"Simulering");
+	menuAdd(sim_menu,1,"Simulera kontakt");
+	menuAdd(sim_menu,1,"Simulera larm");
+
 	menuShow(main_menu);
-	printf("\n=> ");
-	int m;
-	scanf("%d", &m);
-	while ((getchar()) != '\n'); 
-	return m;
+
+	return getUserInput();
 }
