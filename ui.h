@@ -13,17 +13,19 @@
 #define M_REPORT 3
 #define M_QUIT 0
 
-#define M_SUBMENU = 5
+#define M_SUBMENU 5
+#define M_ITEM 6
 typedef struct menu_i {
     int type;
     char *text;
-    struct menu_i *next;
+    void *link;
 }menu_i;
 
 typedef struct menu_t {
     char *title;
+    int size;
     struct menu_t *parent;
-    struct menu_i *first;
+    struct menu_i *items[10];
 
 }menu_t;
 

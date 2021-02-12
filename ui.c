@@ -4,6 +4,7 @@ menu_t *menuCreate(menu_t *parent, char *title){
     menu_t *newMenu = malloc(sizeof(menu_t));
     newMenu->parent = parent;
     newMenu->title = title;
+    newMenu->size = 0;
     return newMenu;
 }
 
@@ -12,35 +13,19 @@ void menuAdd(menu_t *menu, int type, char *text)
     menu_i *newItem = malloc(sizeof(menu_t));
     newItem->type = type;
     newItem->text = text;
-    if(!menu->first)
-	{
-		newItem->next = NULL;
-		menu->first = newItem;
-	}
-	else 
-	{
-        menu_i *item = menu->first;
-		while(item->next)
-        {
-            item = item->next;
-        }
-        item->next = newItem;
-	}
- 
+    newItem->link = NULL;
+    menu->size++;
+    menu->items[menu->size] = newItem; 
 }
 
 void menuShow(menu_t *menu)
 {
     printf("\n-[ %s ]-\n\n",menu->title);
-    if(menu->first)
+    for(int i=0;i<=menu->size;i++)
     {
-        int count = 1;
-        menu_i *item = menu->first;
-        while(item)
+        if(menu->items[i])
         {
-            printf("%i} %s\n",count, item->text);
-            item = item->next;
-            count++;
+            printf("%i} %s\n",i, menu->items[i]->text);
         }
     }
     if(menu->parent)
@@ -51,13 +36,14 @@ void menuShow(menu_t *menu)
     {
         printf("\n0] Avsluta programmet\n");
     }
-
 }
 
 int menuChoice(menu_t *menu)
 {
 	menuShow(menu);
-	return uiUserInput("-> ");
+    int input = uiUserInput("-> ");
+    printf("\n[%s]\n",menu->items[input]->text);
+    return input;
 }
 
 void uiShowList(list_t list)
@@ -79,7 +65,7 @@ void flush()
 
 int uiUserInput(char *prompt)
 {
-    int c, m;
+    int m;
     printf("\n%s",prompt);
 	scanf("%d", &m);
     flush();
