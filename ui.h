@@ -32,7 +32,7 @@ typedef struct menu_t {
 
 menu_t *menuCreate(menu_t *parent, char *title);
 
-void menuAdd(menu_t *menu, int type, char *text);
+void menuAdd(menu_t *menu, int type, char *text, void *link);
 
 void menuShow(menu_t *menu);
 

@@ -8,12 +8,12 @@ menu_t *menuCreate(menu_t *parent, char *title){
     return newMenu;
 }
 
-void menuAdd(menu_t *menu, int type, char *text)
+void menuAdd(menu_t *menu, int type, char *text, void *link)
 {
     menu_i *newItem = malloc(sizeof(menu_t));
     newItem->type = type;
     newItem->text = text;
-    newItem->link = NULL;
+    newItem->link = link;
     menu->size++;
     menu->items[menu->size] = newItem; 
 }
@@ -21,11 +21,11 @@ void menuAdd(menu_t *menu, int type, char *text)
 void menuShow(menu_t *menu)
 {
     printf("\n-[ %s ]-\n\n",menu->title);
-    for(int i=0;i<=menu->size;i++)
+    for(int i = 0; i <= menu->size; i++)
     {
         if(menu->items[i])
         {
-            printf("%i} %s\n",i, menu->items[i]->text);
+            printf("%i} %s\n", i, menu->items[i]->text);
         }
     }
     if(menu->parent)
@@ -42,8 +42,31 @@ int menuChoice(menu_t *menu)
 {
 	menuShow(menu);
     int input = uiUserInput("-> ");
-    printf("\n[%s]\n",menu->items[input]->text);
-    return input;
+    if(input >= 0 && input <= menu->size)
+    {
+        if(input==0)
+        {
+            if(menu->parent)
+            {
+                return menuChoice(menu->parent);
+            }
+            else
+            {
+                return M_QUIT;
+            }
+        }
+        else if(menu->items[input]->type == M_SUBMENU)
+        {
+            return menuChoice(menu->items[input]->link);
+        }
+        return input;
+    }
+    else
+    {
+        printf("Ogiltigt val!\n");
+        return menuChoice(menu);
+    }
+
 }
 
 void uiShowList(list_t list)
@@ -52,7 +75,7 @@ void uiShowList(list_t list)
 		printf("\n--| Contact list |--\n\n");
 		while (item)
 		{
-			printf("[%d] %s",item->id,ctime(&item->date));
+			printf("[%d] %s", item->id, ctime(&item->date));
 			item = item->next;
 		}
 }
