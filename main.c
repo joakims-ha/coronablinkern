@@ -4,6 +4,7 @@
 #include "config.h"
 #include "list.h"
 #include "sim.h"
+#include "menu.h"
 #include "ui.h"
 
 int main()
