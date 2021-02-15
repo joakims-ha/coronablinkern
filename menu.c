@@ -52,9 +52,11 @@ menu_r *menuSelection(menu_t *menu)
                     return menuSelection(menu->items[input-1]->link);
                 case M_ITEM:
                     printf(" ");
+                    void(*func)() = menu->items[input-1]->link;
+				    (func)();
+                    
                     menu_r *res = malloc(sizeof(menu_r));
                     res->type=M_ITEM;
-                    res->link=menu->items[input-1]->link;
                     return res;
                 default:
                     printf("menuChoice() ERROR!\n");

@@ -53,11 +53,6 @@ int main()
 		menu_r *res = menuSelection(main_menu);
 		switch(res->type)
 		{
-			case M_ITEM:
-				printf(" ");
-				void(*func)() = res->link;
-				(func)();
-				break;
 			case M_QUIT:
 				printf("Hejdå\n");
 				listDestroy(devices);
