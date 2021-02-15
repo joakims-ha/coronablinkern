@@ -15,56 +15,68 @@ void menuAdd(menu_t *menu, int type, char *text, void *link)
     newItem->text = text;
     newItem->link = link;
     menu->size++;
-    menu->items[menu->size] = newItem; 
+    menu->items[menu->size-1] = newItem; 
 }
 
 void menuShow(menu_t *menu)
 {
-    printf("\n-[ %s ]-\n\n",menu->title);
+    printf("\n -[ %s ]-\n\n",menu->title);
     for(int i = 0; i <= menu->size; i++)
     {
         if(menu->items[i])
         {
-            printf("%i} %s\n", i, menu->items[i]->text);
+            printf(" %i} %s\n", i+1, menu->items[i]->text);
         }
     }
     if(menu->parent)
     {
-        printf("\n0] Gå bakåt\n");
+        printf("\n 0] Gå bakåt\n");
     }
     else
     {
-        printf("\n0] Avsluta programmet\n");
+        printf("\n 0] Avsluta programmet\n");
     }
 }
 
-int menuChoice(menu_t *menu)
+menu_r *menuSelection(menu_t *menu)
 {
 	menuShow(menu);
     int input = uiUserInput("-> ");
     if(input >= 0 && input <= menu->size)
     {
-        if(input==0)
+        if(input!=0)
+        {
+            switch(menu->items[input-1]->type)
+            {
+                case M_MENU:
+                    return menuSelection(menu->items[input-1]->link);
+                case M_ITEM:
+                    printf(" ");
+                    menu_r *res = malloc(sizeof(menu_r));
+                    res->type=M_ITEM;
+                    res->link=menu->items[input-1]->link;
+                    return res;
+                default:
+                    printf("menuChoice() ERROR!\n");
+            }
+        }
+        else
         {
             if(menu->parent)
             {
-                return menuChoice(menu->parent);
+                return menuSelection(menu->parent);
             }
             else
             {
-                return M_QUIT;
+                menu_r *res = malloc(sizeof(menu_r));
+                res->type=M_QUIT;
+                return res;
             }
         }
-        else if(menu->items[input]->type == M_SUBMENU)
-        {
-            return menuChoice(menu->items[input]->link);
-        }
-        return input;
     }
     else
     {
         printf("Ogiltigt val!\n");
-        return menuChoice(menu);
+        return menuSelection(menu);
     }
-
 }
