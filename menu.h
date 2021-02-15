@@ -12,11 +12,6 @@
 #define M_MENU 1
 #define M_ITEM 2
 
-typedef struct menu_r {
-    int type;
-    void *link;
-}menu_r;
-
 typedef struct menu_i {
     int type;
     char *text;
@@ -38,6 +33,6 @@ void menuAdd(menu_t *menu, int type, char *text, void *link);
 
 void menuShow(menu_t *menu);
 
-menu_r *menuSelection(menu_t *menu);
+int menuSelection(menu_t *menu);
 
 #endif

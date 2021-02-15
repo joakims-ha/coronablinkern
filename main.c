@@ -45,19 +45,12 @@ int main()
 	menuAdd(sim_menu, M_ITEM, "Simulera kontakt", sim_menu_contact);
 	menuAdd(sim_menu, M_ITEM, "Simulera larm", sim_menu_alert);
 
-	printf("\n --== Välkommen till Coronablinkern ==--\n");
-	printf("\n             ## v0.1 ##\n");
-	printf("\n ---------------------------------------\n");
-	while(1)
+	printf("\n--== Välkommen till Coronablinkern ==--\n");
+	printf("\n            ## v0.1 ##\n");
+	printf("\n---------------------------------------\n");
+	while(menuSelection(main_menu))
 	{
-		menu_r *res = menuSelection(main_menu);
-		switch(res->type)
-		{
-			case M_QUIT:
-				printf("Hejdå\n");
-				listDestroy(devices);
-				return 0;
-		}
+		printf("\n---------------------------------------\n");
 	}
 }
 

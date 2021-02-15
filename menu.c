@@ -38,7 +38,7 @@ void menuShow(menu_t *menu)
     }
 }
 
-menu_r *menuSelection(menu_t *menu)
+int menuSelection(menu_t *menu)
 {
 	menuShow(menu);
     int input = uiUserInput("-> ");
@@ -54,10 +54,7 @@ menu_r *menuSelection(menu_t *menu)
                     printf(" ");
                     void(*func)() = menu->items[input-1]->link;
 				    (func)();
-                    
-                    menu_r *res = malloc(sizeof(menu_r));
-                    res->type=M_ITEM;
-                    return res;
+                    return 1;
                 default:
                     printf("menuChoice() ERROR!\n");
             }
@@ -70,15 +67,13 @@ menu_r *menuSelection(menu_t *menu)
             }
             else
             {
-                menu_r *res = malloc(sizeof(menu_r));
-                res->type=M_QUIT;
-                return res;
+                return 0;
             }
         }
     }
     else
     {
-        printf("Ogiltigt val!\n");
+        printf("\nOgiltigt val!\n");
         return menuSelection(menu);
     }
 }
