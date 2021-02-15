@@ -30,6 +30,7 @@ void menuAddMenu(menu_t *menu, char *text, void *link)
     newItem->text = text;
     newItem->link = link;
     menu->size++;
+    //menu->items = (menu_i *) realloc(menu->items, menu->size);
     menu->items[menu->size] = newItem; 
 }
 
