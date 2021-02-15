@@ -5,6 +5,21 @@ menu_t *menuCreate(menu_t *parent, char *title){
     newMenu->parent = parent;
     newMenu->title = title;
     newMenu->size = 0;
+
+    menu_i *newItem = malloc(sizeof(menu_t));
+    newItem->type = M_QUIT;
+    if(parent)
+    {
+        newItem->link = parent;
+        newItem->text = "Gå bakåt";
+    }
+    else
+    {
+        newItem->link = NULL;
+        newItem->text = "Avsluta programmet";
+    }
+    newMenu->items[0] = newItem; 
+
     return newMenu;
 }
 
@@ -15,27 +30,20 @@ void menuAdd(menu_t *menu, int type, char *text, void *link)
     newItem->text = text;
     newItem->link = link;
     menu->size++;
-    menu->items[menu->size-1] = newItem; 
+    menu->items[menu->size] = newItem; 
 }
 
 void menuShow(menu_t *menu)
 {
     printf("\n -[ %s ]-\n\n",menu->title);
-    for(int i = 0; i <= menu->size; i++)
+    for(int i = 1; i <= menu->size; i++)
     {
         if(menu->items[i])
         {
-            printf(" %i} %s\n", i+1, menu->items[i]->text);
+            printf(" %i} %s\n", i, menu->items[i]->text);
         }
     }
-    if(menu->parent)
-    {
-        printf("\n 0] Gå bakåt\n");
-    }
-    else
-    {
-        printf("\n 0] Avsluta programmet\n");
-    }
+    printf("\n 0} %s\n", menu->items[0]->text);
 }
 
 int menuSelection(menu_t *menu)
@@ -44,22 +52,16 @@ int menuSelection(menu_t *menu)
     int input = uiUserInput("-> ");
     if(input >= 0 && input <= menu->size)
     {
-        if(input!=0)
+        if(menu->items[input]->type == M_MENU)
         {
-            switch(menu->items[input-1]->type)
-            {
-                case M_MENU:
-                    return menuSelection(menu->items[input-1]->link);
-                case M_ITEM:
-                    printf(" ");
-                    void(*func)() = menu->items[input-1]->link;
-				    (func)();
-                    return 1;
-                default:
-                    printf("menuChoice() ERROR!\n");
-            }
+            return menuSelection(menu->items[input]->link);
         }
-        else
+        else if(menu->items[input]->type == M_ITEM)
+        {
+            int(*func)() = menu->items[input]->link;
+            return (func)();
+        }
+        else if(menu->items[input]->type == M_QUIT)
         {
             if(menu->parent)
             {

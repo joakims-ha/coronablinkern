@@ -9,18 +9,20 @@
 
 list_t devices;
 
-void sim_menu_contact()
+int sim_menu_contact()
 {
 	simContact(devices);
+	return 1;
 	
 }
 
-void sim_menu_alert()
+int sim_menu_alert()
 {
 	simAlert(devices);
+	return 1;
 }
 
-void main_menu_case()
+int main_menu_case()
 {
 	if(uiUserInput("Ange öppningskod > ")==DEVICE_CODE)
 	{
@@ -30,6 +32,7 @@ void main_menu_case()
 	{
 		printf("\nFelaktig kod!\n");
 	}
+	return 1;
 }
 
 int main()
@@ -48,6 +51,7 @@ int main()
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
 	printf("\n            ## v0.1 ##\n");
 	printf("\n---------------------------------------\n");
+	
 	while(menuSelection(main_menu))
 	{
 		printf("\n---------------------------------------\n");
