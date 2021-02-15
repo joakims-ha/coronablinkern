@@ -6,6 +6,7 @@
 #include "sim.h"
 #include "menu.h"
 #include "ui.h"
+#include "io.h"
 
 list_t devices;
 
@@ -19,6 +20,15 @@ int sim_menu_contact()
 int sim_menu_alert()
 {
 	simAlert(devices);
+	return 1;
+}
+
+int sim_menu_list()
+{
+	for(int i = 1; i <= 10; i++)
+    {
+		printf("Add random contact to list\n");
+    }
 	return 1;
 }
 
@@ -46,6 +56,7 @@ int main()
 	menuAddItem(main_menu, "Rapportera fall", main_menu_case);
 	menuAddItem(sim_menu, "Simulera kontakt", sim_menu_contact);
 	menuAddItem(sim_menu, "Simulera larm", sim_menu_alert);
+	menuAddItem(sim_menu, "Skapa lista", sim_menu_list);
 
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
 	printf("\n            ## v0.1 ##\n");
