@@ -37,16 +37,15 @@ int main_menu_case()
 
 int main()
 {	
-	devices = listCreate();
 
+	devices = listCreate();
 	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
 	menu_t *sim_menu = menuCreate(main_menu,"Simulering");
-
-	menuAdd(main_menu, M_MENU, "Simulering", sim_menu);
-	menuAdd(main_menu, M_ITEM, "Rapportera fall", main_menu_case);
-
-	menuAdd(sim_menu, M_ITEM, "Simulera kontakt", sim_menu_contact);
-	menuAdd(sim_menu, M_ITEM, "Simulera larm", sim_menu_alert);
+	
+	menuAddMenu(main_menu, "Simulering", sim_menu);
+	menuAddItem(main_menu, "Rapportera fall", main_menu_case);
+	menuAddItem(sim_menu, "Simulera kontakt", sim_menu_contact);
+	menuAddItem(sim_menu, "Simulera larm", sim_menu_alert);
 
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
 	printf("\n            ## v0.1 ##\n");
