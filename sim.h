@@ -15,18 +15,18 @@
  *  Function for simulating contact
  *  @param list list of devices
 */
-void simContact(list_t list);
+int simContact(list_t list);
 
 /*!
  *  Function for simulating alert
  *  @param list list of devices
 */
-void simAlert(list_t list);
+int simAlert(list_t list);
 
 /*!
  *  Function for simulating case
  *  @param list list of devices
 */
-void simCase(list_t list);
+int simCase(list_t list);
 
 #endif

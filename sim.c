@@ -1,6 +1,6 @@
 #include "sim.h"
 
-void simContact(list_t list)
+int simContact(list_t list)
 {
 	int i = uiUserInput("Ange enhetens id > ");
 
@@ -27,15 +27,17 @@ void simContact(list_t list)
 	{
 		printf("\nOgiltigt datum!");
 	}
+	return 1;
 }
 
-void simAlert(list_t list)
+int simAlert(list_t list)
 {
 	printf("\nSmittlarm mottaget. Meddelar servern.\n\n");
 	uiShowList(list);
+	return 1;
 }
 
-void simCase(list_t list)
+int simCase(list_t list)
 {
 	printf("\nÖppningskod mottagen:\n");
 	printf("- Tar bort föråldrade kontakter\n");
@@ -45,4 +47,5 @@ void simCase(list_t list)
 	listPrune(list, max);
 	printf("- Sänder information till servern\n");
 	uiShowList(list);
+	return 1;
 }

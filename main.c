@@ -10,19 +10,6 @@
 
 list_t devices;
 
-int sim_menu_contact()
-{
-	simContact(devices);
-	return 1;
-	
-}
-
-int sim_menu_alert()
-{
-	simAlert(devices);
-	return 1;
-}
-
 int sim_menu_list()
 {
 	for(int i = 1; i <= 10; i++)
@@ -53,10 +40,10 @@ int main()
 	menu_t *sim_menu = menuCreate(main_menu,"Simulering");
 	
 	menuAddMenu(main_menu, "Simulering", sim_menu);
-	menuAddItem(main_menu, "Rapportera fall", main_menu_case);
-	menuAddItem(sim_menu, "Simulera kontakt", sim_menu_contact);
-	menuAddItem(sim_menu, "Simulera larm", sim_menu_alert);
-	menuAddItem(sim_menu, "Skapa lista", sim_menu_list);
+	menuAddCall(main_menu, "Rapportera fall", main_menu_case, NULL);
+	menuAddCall(sim_menu, "Simulera kontakt", simContact, devices);
+	menuAddCall(sim_menu, "Simulera larm", simAlert, devices);
+	menuAddCall(sim_menu, "Skapa lista", sim_menu_list, NULL);
 
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
 	printf("\n            ## v0.1 ##\n");
