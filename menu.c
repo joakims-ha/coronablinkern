@@ -23,10 +23,10 @@ menu_t *menuCreate(menu_t *parent, char *title){
     return newMenu;
 }
 
-void menuAddMenu(menu_t *menu, char *text, void *link)
+void menuAdd(menu_t *menu, int type, char *text, void *link)
 {
     menu_i *newItem = malloc(sizeof(menu_t));
-    newItem->type = M_MENU;
+    newItem->type = type;
     newItem->text = text;
     newItem->link = link;
     menu->size++;
@@ -34,14 +34,14 @@ void menuAddMenu(menu_t *menu, char *text, void *link)
     menu->items[menu->size] = newItem; 
 }
 
-void menuAddItem(menu_t *menu, char *text, void *link)
+void menuAddMenu(menu_t *parent, char *text, void *menu)
 {
-    menu_i *newItem = malloc(sizeof(menu_t));
-    newItem->type = M_ITEM;
-    newItem->text = text;
-    newItem->link = link;
-    menu->size++;
-    menu->items[menu->size] = newItem; 
+    menuAdd(parent, M_MENU, text, menu);
+}
+
+void menuAddItem(menu_t *parent, char *text, void *link)
+{
+    menuAdd(parent, M_ITEM, text, link);
 }
 
 void menuShow(menu_t *menu)

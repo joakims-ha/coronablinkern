@@ -28,9 +28,9 @@ typedef struct menu_t {
 
 menu_t *menuCreate(menu_t *parent, char *title);
 
-void menuAddMenu(menu_t *menu, char *text, void *link);
+void menuAddMenu(menu_t *parent, char *text, void *menu);
 
-void menuAddItem(menu_t *menu, char *text, void *link);
+void menuAddItem(menu_t *parent, char *text, void *link);
 
 void menuShow(menu_t *menu);
 
