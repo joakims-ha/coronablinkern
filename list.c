@@ -109,17 +109,40 @@ void listSave(list_t list)
 {
     list_i *item = list->start;
     FILE *pfile = fopen("list.txt", "w");
-    if (pfile != NULL) {
+    if (pfile != NULL)
+	{
 		while (item)
 		{
-			fprintf(pfile, "%d %li", item->id, item->date);
+			fprintf(pfile, "%d %li\n", item->id, item->date);
 			item = item->next;
 		}
+		fclose(pfile);
     }
-    fclose(pfile);
+    else
+	{
+        printf("Error opening file");
+        fclose(pfile);
+    }
 }
 
 void listLoad(list_t list)
 {
-
+	int id;
+	long int date;
+	FILE *pfile = fopen("list.txt", "r");
+	fseek(pfile, SEEK_SET, 0);
+    if (pfile != NULL)
+	{
+        while (!feof(pfile))
+		{
+            fscanf(pfile, "%d %li", &id, &date);
+			listAdd(list, id, date);
+        }
+        fclose(pfile);
+    }
+    else
+	{
+        printf("Error opening file");
+        fclose(pfile);
+    }
 }

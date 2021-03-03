@@ -28,6 +28,12 @@ int list_menu_save()
 	return 1;
 }
 
+int list_menu_load()
+{
+	listLoad(devices);
+	return 1;
+}
+
 int list_menu_show()
 {
 	uiShowList(devices);
@@ -64,6 +70,7 @@ int main()
 
 	menuAddCall(list_menu, "Generera lista", sim_menu_list, NULL);
 	menuAddCall(list_menu, "Spara lista", list_menu_save, NULL);
+	menuAddCall(list_menu, "Ladda lista", list_menu_load, NULL);
 	menuAddCall(list_menu, "Visa lista", list_menu_show, NULL);
 
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
