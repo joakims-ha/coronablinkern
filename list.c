@@ -105,10 +105,10 @@ int listLength(list_t list)
 	return counter;
 }
 
-void listSave(list_t list)
+void listSave(list_t list, char *file)
 {
     list_i *item = list->start;
-    FILE *pfile = fopen("list.txt", "w");
+    FILE *pfile = fopen(file, "w");
     if (pfile != NULL)
 	{
 		while (item)
@@ -125,11 +125,11 @@ void listSave(list_t list)
     }
 }
 
-void listLoad(list_t list)
+void listLoad(list_t list, char *file)
 {
 	int id;
 	long int date;
-	FILE *pfile = fopen("list.txt", "r");
+	FILE *pfile = fopen(file, "r");
 	fseek(pfile, SEEK_SET, 0);
     if (pfile != NULL)
 	{

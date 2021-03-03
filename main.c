@@ -24,13 +24,13 @@ int sim_menu_list()
 
 int list_menu_save()
 {
-	listSave(devices);
+	listSave(devices,"list.txt");
 	return 1;
 }
 
 int list_menu_load()
 {
-	listLoad(devices);
+	listLoad(devices,"list.txt");
 	return 1;
 }
 
