@@ -29,7 +29,7 @@ typedef struct menu_t {
 
 menu_t *menuCreate(menu_t *parent, char *title);
 
-void menuAddMenu(menu_t *parent, char *text, void *menu);
+void menuAddMenu(menu_t *parent, menu_t *menu);
 
 void menuAddCall(menu_t *menu, char *text, void *func, void *arg);
 

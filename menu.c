@@ -35,9 +35,9 @@ void menuAdd(menu_t *menu, int type, char *text, void *ptr1, void *ptr2)
     menu->items[menu->size] = newItem; 
 }
 
-void menuAddMenu(menu_t *parent, char *text, void *menu)
+void menuAddMenu(menu_t *parent, menu_t *menu)
 {
-    menuAdd(parent, M_MENU, text, menu, NULL);
+    menuAdd(parent, M_MENU, menu->title, menu, NULL);
 }
 
 void menuAddCall(menu_t *parent, char *text, void *func, void *arg)

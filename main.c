@@ -61,9 +61,9 @@ int main()
 	menu_t *sim_menu = menuCreate(main_menu,"Simulering");
 	menu_t *list_menu = menuCreate(sim_menu,"Lista");
 	
-	menuAddMenu(main_menu, "Simulering", sim_menu);
-	menuAddMenu(sim_menu, "Lista", list_menu);
 	menuAddCall(main_menu, "Rapportera fall", main_menu_case, NULL);
+	menuAddMenu(main_menu, sim_menu);
+	menuAddMenu(sim_menu, list_menu);
 
 	menuAddCall(sim_menu, "Simulera kontakt", simContact, devices);
 	menuAddCall(sim_menu, "Simulera larm", simAlert, devices);
