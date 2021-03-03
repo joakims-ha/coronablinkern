@@ -66,8 +66,18 @@ bool listIsEmpty(list_t list);
  */
 int listLength(list_t list);
 
+/*!
+ *  Function for saving a list to file
+ *  @param list The list to save.
+ *  @param file Name of file to save to.
+ */
 void listSave(list_t list, char *file);
 
+/*!
+ *  Function for loading a list from file
+ *  @param list The list to load to.
+ *  @param file Name of file to load from.
+ */
 void listLoad(list_t list, char *file);
 
 #endif
