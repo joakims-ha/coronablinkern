@@ -107,7 +107,16 @@ int listLength(list_t list)
 
 void listSave(list_t list)
 {
-
+    list_i *item = list->start;
+    FILE *pfile = fopen("list.txt", "w");
+    if (pfile != NULL) {
+		while (item)
+		{
+			fprintf(pfile, "%d %li", item->id, item->date);
+			item = item->next;
+		}
+    }
+    fclose(pfile);
 }
 
 void listLoad(list_t list)
