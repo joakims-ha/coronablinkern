@@ -6,7 +6,7 @@ void uiShowList(list_t list)
 		printf("\n--| Contact list |--\n\n");
 		while (item)
 		{
-			printf("[%d] %s", item->id, ctime(&item->date));
+			printf("[%12.12d] %s", item->id, ctime(&item->date));
 			item = item->next;
 		}
 }
