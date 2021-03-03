@@ -135,7 +135,7 @@ void listLoad(list_t list)
 	{
         while (!feof(pfile))
 		{
-            fscanf(pfile, "%d %li", &id, &date);
+            fscanf(pfile, "%d %li\n", &id, &date);
 			listAdd(list, id, date);
         }
         fclose(pfile);
