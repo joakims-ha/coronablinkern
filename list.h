@@ -66,4 +66,8 @@ bool listIsEmpty(list_t list);
  */
 int listLength(list_t list);
 
+void listSave(list_t list);
+
+void listLoad(list_t list);
+
 #endif

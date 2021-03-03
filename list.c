@@ -8,7 +8,8 @@ list_t listCreate()
     return newList;
 }
 
-void listDestroy(list_t list) {
+void listDestroy(list_t list)
+{
 	list_i *tmpItem;
     while (list->start)
     {
@@ -102,4 +103,14 @@ int listLength(list_t list)
 		item = item->next;
 	}
 	return counter;
+}
+
+void listSave(list_t list)
+{
+
+}
+
+void listLoad(list_t list)
+{
+
 }
