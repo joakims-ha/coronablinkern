@@ -4,6 +4,7 @@
 
 #include <time.h>
 #include "list.h"
+#include "config.h"
 
 int actionsCreateList(list_t devices);
 int actionsSaveList(list_t devices);

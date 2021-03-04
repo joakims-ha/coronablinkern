@@ -43,7 +43,7 @@ int simCase(list_t list)
 	printf("- Tar bort föråldrade kontakter\n");
 	time_t now;
 	time(&now);
-	long int max = now-(MAX_AGE*24*60*60);
+	long int max = now-MAX_AGE;
 	listPrune(list, max);
 	printf("- Sänder information till servern\n");
 	uiShowList(list);

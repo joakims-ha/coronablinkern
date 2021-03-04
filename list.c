@@ -130,9 +130,9 @@ void listLoad(list_t list, char *file)
 	int id;
 	long int date;
 	FILE *pfile = fopen(file, "r");
-	fseek(pfile, SEEK_SET, 0);
     if (pfile != NULL)
 	{
+		fseek(pfile, SEEK_SET, 0);
         while (!feof(pfile))
 		{
             fscanf(pfile, "%d %li\n", &id, &date);
