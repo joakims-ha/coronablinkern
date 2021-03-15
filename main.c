@@ -37,12 +37,13 @@ int main()
 	listLoad(contacts, FILE_NAME);
 	time(&now);
 	listPrune(contacts, now-MAX_AGE);
+
 	while(menuSelection(main_menu))
 	{
-		time(&now);
-		listPrune(contacts, now-MAX_AGE);
-		listSave(contacts, FILE_NAME);
 		printf("\n---------------------------------------\n");
 	}
+	time(&now);
+	listPrune(contacts, now-MAX_AGE);
+	listSave(contacts, FILE_NAME);
 }
 

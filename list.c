@@ -107,12 +107,18 @@ int listLength(list_t list)
 void listSave(list_t list, char *file)
 {
     list_i *item = list->start;
+	long int *data[2];
+
+	printf("Saving to file: %s\n",file);
+
     FILE *pfile = fopen(file, "w");
     if (pfile != NULL)
 	{
 		while (item)
 		{
-			fprintf(pfile, "%li %li\n", item->id, item->date);
+			data[0] = item->id;
+			data[1] = item->date;
+			fwrite(data , sizeof(long int), 2 , pfile );
 			item = item->next;
 		}
 		fclose(pfile);
@@ -120,27 +126,26 @@ void listSave(list_t list, char *file)
     else
 	{
         printf("Error opening file");
-        //fclose(pfile);
     }
 }
 
 void listLoad(list_t list, char *file)
 {
-	long int id, date;
+	long int *data[2];
+	printf("Loading from file: %s\n",file);
+
 	FILE *pfile = fopen(file, "r");
     if (pfile != NULL)
 	{
-		fseek(pfile, SEEK_SET, 0);
         while (!feof(pfile))
 		{
-            fscanf(pfile, "%li %li\n", &id, &date);
-			listAdd(list, id, date);
+			fread(data, sizeof(long int), 2, pfile);
+            listAdd(list, data[0], data[1]);
         }
         fclose(pfile);
     }
     else
 	{
         printf("Error opening file");
-        //fclose(pfile);
     }
 }

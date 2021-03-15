@@ -14,13 +14,13 @@ int actionsCreateList(list_t devices)
 
 int actionsSaveList(list_t devices)
 {
-	listSave(devices, FILE_NAME);
+	listSave(devices, "list.bin");
 	return 1;
 }
 
 int actionsLoadList(list_t devices)
 {
-	listLoad(devices, FILE_NAME);
+	listLoad(devices, "list.bin");
 	return 1;
 }
 
