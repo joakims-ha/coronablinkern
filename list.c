@@ -1,5 +1,4 @@
 #include "list.h"
-#include <stdio.h>
 
 list_t listCreate()
 {
@@ -20,7 +19,7 @@ void listDestroy(list_t list)
 	free(list);
 }
 
-void listAdd(list_t list, int id, long int date)
+void listAdd(list_t list, long int id, long int date)
 {
 	list_i *newItem = malloc(sizeof(list_i));
 	newItem->id = id;
@@ -113,7 +112,7 @@ void listSave(list_t list, char *file)
 	{
 		while (item)
 		{
-			fprintf(pfile, "%d %li\n", item->id, item->date);
+			fprintf(pfile, "%li %li\n", item->id, item->date);
 			item = item->next;
 		}
 		fclose(pfile);
@@ -121,21 +120,20 @@ void listSave(list_t list, char *file)
     else
 	{
         printf("Error opening file");
-        fclose(pfile);
+        //fclose(pfile);
     }
 }
 
 void listLoad(list_t list, char *file)
 {
-	int id;
-	long int date;
+	long int id, date;
 	FILE *pfile = fopen(file, "r");
     if (pfile != NULL)
 	{
 		fseek(pfile, SEEK_SET, 0);
         while (!feof(pfile))
 		{
-            fscanf(pfile, "%d %li\n", &id, &date);
+            fscanf(pfile, "%li %li\n", &id, &date);
 			listAdd(list, id, date);
         }
         fclose(pfile);
@@ -143,6 +141,6 @@ void listLoad(list_t list, char *file)
     else
 	{
         printf("Error opening file");
-        fclose(pfile);
+        //fclose(pfile);
     }
 }

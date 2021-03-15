@@ -3,6 +3,7 @@
 #define LIST
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 
 /*! \typedef list_i
@@ -10,7 +11,7 @@
  */
 typedef struct list_i
 {
-    int  id;
+    long int  id;
     long int  date;
     struct list_i *next;
     struct list_i *prev;
@@ -44,7 +45,7 @@ void listDestroy(list_t list);
  *  @param id Id number of the new entry.
  *  @param date Timestamp of the new entry.
  */
-void listAdd(list_t list, int id, long int date);
+void listAdd(list_t list, long int id, long int date);
 
 /*!
  *  Function for removing old items from a list
