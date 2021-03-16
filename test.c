@@ -17,8 +17,8 @@ void list_add(void)
     listAdd(list,1,3);
     CU_ASSERT(list->size==1);
     listAdd(list,2,1);
-    listAdd(list,3,2);
     listAdd(list,4,4);
+    listAdd(list,3,2);
     CU_ASSERT_TRUE(list->size==4);
 }
 
@@ -32,11 +32,10 @@ void list_sort(void)
 
 void list_prune(void)
 {   
-    listPrune(list,2);
-    CU_ASSERT(list->size==3);
+    listPrune(list,3);
+    CU_ASSERT(list->size==2);
     CU_ASSERT(list->items[0].id==4);
     CU_ASSERT(list->items[1].id==1);
-    CU_ASSERT(list->items[2].id==3);
     listPrune(list,5);
     CU_ASSERT(list->size==0);
 }
