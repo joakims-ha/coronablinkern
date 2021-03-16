@@ -9,65 +9,50 @@ int userInput(char *prompt)
 	return m;
 }
 
-int actionsCreateList(contact_list devices)
+int actionsCreateList(contact_list list)
 {
 	time_t now;
 	time(&now);
 	int range = MAX_AGE*2;
 	for(int i = 1; i <= 10; i++)
     {
-		listAdd(devices, rand(), now-(rand()%range));
+		listAdd(list, rand(), now-(rand()%range));
     }
 	return 1;
 }
 
-int actionsSaveList(contact_list devices)
+int actionsSaveList(contact_list list)
 {
-	listSave(devices, FILE_NAME);
+	listSave(list, FILE_NAME);
 	return 1;
 }
 
-int actionsLoadList(contact_list devices)
+int actionsLoadList(contact_list list)
 {
-	listLoad(devices, FILE_NAME);
+	listLoad(list, FILE_NAME);
 	return 1;
 }
 
-int actionsPruneList(contact_list devices)
+int actionsPruneList(contact_list list)
 {
 	time_t now;
 	time(&now);
-	listPrune(devices, now-MAX_AGE);
+	listPrune(list, now-MAX_AGE);
 	return 1;
 }
 
-int actionsShowList(contact_list devices)
+int showList(contact_list list)
 {
-	showList(devices);
+	printf("\n------------| Kontakter |--------------\n\n");
+	for(int i=0;i<list->size;i++)
+	{
+		printf("[%12.12li] %s", list->items[i].id, ctime(&list->items[i].date));
+	}
+	printf("\n---------------------------------------\n");
 	return 1;
 }
 
-int actionsSimulateCase(contact_list devices)
-{
-	if(userInput("Ange öppningskod > ")==DEVICE_CODE)
-	{
-		printf("\nÖppningskod mottagen:\n");
-		printf("- Tar bort föråldrade kontakter\n");
-		time_t now;
-		time(&now);
-		long int max = now-MAX_AGE;
-		listPrune(devices, max);
-		printf("- Sänder information till servern\n");
-		showList(devices);
-	}
-	else
-	{
-		printf("\nFelaktig kod!\n");
-	}
-	return 1;
-}
-
-int actionsSimulateContact(contact_list list)
+int actionsAddContact(contact_list list)
 {
 	int id = userInput("Ange enhetens id > ");
 	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
@@ -98,19 +83,42 @@ int actionsSimulateContact(contact_list list)
 	return 1;
 }
 
-int actionsSimulateAlert(contact_list list)
+void sendAlert()
 {
-	printf("\nSmittlarm mottaget. Meddelar servern.\n\n");
-	showList(list);
+	printf("\nSkickar öppnings kod(%i) och enhets id(%i) till server.\n",DEVICE_CODE,DEVICE_ID);
+
+}
+
+int actionsSendAlert(contact_list list)
+{
+	if(userInput("Ange öppningskod > ")==DEVICE_CODE)
+	{
+		sendAlert();
+	}
+	else
+	{
+		printf("\nFelaktig kod!\n");
+	}
 	return 1;
 }
 
-void showList(contact_list list)
+void reciveAlert(contact_list list, long int id)
 {
-	printf("\n-------------| Contacts |--------------\n\n");
-	for(int i=0;i<list->size;i++)
+	time_t now;
+	time(&now);
+	listPrune(list, now-MAX_AGE);
+	if(listIdExist(list,id))
 	{
-		printf("[%12.12li] %s", list->items[i].id, ctime(&list->items[i].date));
+		printf("\n!!! Du har varit i kontakt med smittad !!!\n");
 	}
-	printf("\n---------------------------------------\n");
+	else
+	{
+		printf("\nIngen kontakt funnen!\n");
+	}
+}
+
+int actionsReciveAlert(contact_list list)
+{
+	reciveAlert(list,userInput("id > "));
+	return 1;
 }

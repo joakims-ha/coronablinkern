@@ -10,10 +10,6 @@ contact_list listCreate()
 
 void listDestroy(contact_list list)
 {
-	for(int i=0;i<list->size;i++)
-	{
-		free(&list->items[i]);
-	}
 	free(list);
 }
 
