@@ -1,13 +1,11 @@
 #include "ui.h"
 
-void uiShowList(list_t list)
+void uiShowList(contact_list list)
 {
-    	list_i *item = list->start;
 		printf("\n--| Contact list |--\n\n");
-		while (item)
+		for(int i=0;i<list->size;i++)
 		{
-			printf("[%12.12d] %s", item->id, ctime(&item->date));
-			item = item->next;
+			printf("[%12.12li] %s", list->items[i].id, ctime(&list->items[i].date));
 		}
 }
 

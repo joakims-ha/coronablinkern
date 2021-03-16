@@ -8,7 +8,7 @@
 
 #include "list.h"
 
-void uiShowList(list_t list);
+void uiShowList(contact_list list);
 
 int uiUserInput(char *prompt);
 

@@ -1,151 +1,86 @@
 #include "list.h"
 
-list_t listCreate()
+contact_list listCreate()
 {
-    list_t newList = malloc(sizeof(list_t));
-    newList->start = NULL;
+    contact_list newList = malloc(sizeof(contact_list));
+	newList->items = NULL;
+	newList->size = 0;
     return newList;
 }
 
-void listDestroy(list_t list)
+void listDestroy(contact_list list)
 {
-	list_i *tmpItem;
-    while (list->start)
-    {
-        tmpItem = list->start;
-		list->start = list->start->next;
-		free(tmpItem);
-    }
+	for(int i=0;i<list->size;i++)
+	{
+		free(&list->items[i]);
+	}
 	free(list);
 }
 
-void listAdd(list_t list, long int id, long int date)
+void listAdd(contact_list list, long int id, long int date)
 {
-	list_i *newItem = malloc(sizeof(list_i));
+	list->size++;
+	list->items = realloc(list->items, list->size*sizeof(contact));
+
+	contact *newItem = malloc(sizeof(contact));
 	newItem->id = id;
 	newItem->date = date;
-	newItem->prev = NULL;
-	if(listIsEmpty(list))
-	{
-		newItem->next = NULL;
-		list->start = newItem;
-	}
-	else 
-	{
-		list->start->prev = newItem;
-		newItem->next = list->start;
-		list->start = newItem;
-	}
+
+	list->items[list->size-1] = *newItem;
+
 }
 
-void listPrune(list_t list, long int age)
+void listPrune(contact_list list, long int age)
 {
-
-	if(!listIsEmpty(list))
+	for(int i=0;i<list->size;i++)
 	{
-		list_i *item = list->start;
-		list_i *tmpItem;
-		while (item)
+		if(list->items[i].date<age)
 		{
-			if(item->prev)
-			{
-				if(item->date<age)
-				{
-					tmpItem = item;
-					item->prev->next = item->next;
-					item = item->next;
-					free(tmpItem);
-				}
-				else
-				{
-					item = item->next;
-				}
-			}
-			else
-			{
-				if(item->date<age)
-				{
-					tmpItem = item;
-					list->start = item->next;
-					if(list->start) list->start->prev = NULL;
-					item = item->next;
-					free(tmpItem);
-				}
-				else
-				{
-					item = item->next;
-				}
-			}
+			list->items[i].id = 0;
+			list->items[i].date = 0;
 		}
 	}
 }
 
-bool listIsEmpty(list_t list)
+bool listIdExist(contact_list list, long int id)
 {
-	if(list->start)
+	for(int i=0;i<list->size;i++)
 	{
-		return false;
+		if(list->items[i].id == id )
+		{
+			return true;
+		}
 	}
-	else
-	{
-		return true;
-	}
+	return false;
 }
 
-int listLength(list_t list)
+void listSave(contact_list list, char *file)
 {
-	list_i *item = list->start;
-	int counter = 0;
-	while (item)
-	{
-		counter++;
-		item = item->next;
-	}
-	return counter;
-}
-
-void listSave(list_t list, char *file)
-{
-    list_i *item = list->start;
-	long int *data[2];
-
-	printf("Saving to file: %s\n",file);
-
     FILE *pfile = fopen(file, "w");
     if (pfile != NULL)
 	{
-		while (item)
-		{
-			data[0] = item->id;
-			data[1] = item->date;
-			fwrite(data , sizeof(long int), 2 , pfile );
-			item = item->next;
-		}
+		fwrite(&list->size, sizeof(int), 1, pfile);
+		fwrite(list->items, sizeof(contact), list->size, pfile);
 		fclose(pfile);
     }
     else
 	{
-        printf("Error opening file");
+        printf("Error opening file!");
     }
 }
 
-void listLoad(list_t list, char *file)
+void listLoad(contact_list list, char *file)
 {
-	long int *data[2];
-	printf("Loading from file: %s\n",file);
-
 	FILE *pfile = fopen(file, "r");
     if (pfile != NULL)
 	{
-        while (!feof(pfile))
-		{
-			fread(data, sizeof(long int), 2, pfile);
-            listAdd(list, data[0], data[1]);
-        }
+		fread(&list->size, sizeof(int), 1, pfile);
+		list->items = malloc(list->size*sizeof(contact));
+		fread(list->items, sizeof(contact), list->size, pfile);
         fclose(pfile);
     }
     else
 	{
-        printf("Error opening file");
+        printf("Error opening file!");
     }
 }

@@ -1,6 +1,6 @@
 #include "actions.h"
 
-int actionsCreateList(list_t devices)
+int actionsCreateList(contact_list devices)
 {
 	time_t now;
 	time(&now);
@@ -12,29 +12,37 @@ int actionsCreateList(list_t devices)
 	return 1;
 }
 
-int actionsSaveList(list_t devices)
+int actionsSaveList(contact_list devices)
 {
-	listSave(devices, "list.bin");
+	listSave(devices, FILE_NAME);
 	return 1;
 }
 
-int actionsLoadList(list_t devices)
+int actionsLoadList(contact_list devices)
 {
-	listLoad(devices, "list.bin");
+	listLoad(devices, FILE_NAME);
 	return 1;
 }
 
-int actionsShowList(list_t devices)
+int actionsPruneList(contact_list devices)
+{
+	time_t now;
+	time(&now);
+	listPrune(devices, now-MAX_AGE);
+	return 1;
+}
+
+int actionsShowList(contact_list devices)
 {
 	uiShowList(devices);
 	return 1;
 }
 
-int actionsSimulateCase(list_t devices)
+int actionsSimulateCase(contact_list devices)
 {
 	if(uiUserInput("Ange öppningskod > ")==DEVICE_CODE)
 	{
-		if(!listIsEmpty(devices)) simCase(devices);
+		simCase(devices);
 	}
 	else
 	{

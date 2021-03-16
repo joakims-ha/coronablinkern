@@ -7,10 +7,11 @@
 #include "ui.h"
 #include "config.h"
 
-int actionsCreateList(list_t devices);
-int actionsSaveList(list_t devices);
-int actionsLoadList(list_t devices);
-int actionsShowList(list_t devices);
-int actionsSimulateCase(list_t devices);
+int actionsCreateList(contact_list devices);
+int actionsSaveList(contact_list devices);
+int actionsLoadList(contact_list devices);
+int actionsShowList(contact_list devices);
+int actionsPruneList(contact_list devices);
+int actionsSimulateCase(contact_list devices);
 
 #endif

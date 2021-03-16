@@ -12,7 +12,7 @@
 int main()
 {	
 	time_t now;
-	list_t contacts = listCreate();
+	contact_list contacts = listCreate();
 	
 	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
 	menu_t *sim_menu = menuCreate(main_menu,"Simulering");
@@ -28,6 +28,7 @@ int main()
 	menuAddCall(list_menu, "Generera lista", actionsCreateList, contacts);
 	menuAddCall(list_menu, "Spara lista", actionsSaveList, contacts);
 	menuAddCall(list_menu, "Ladda lista", actionsLoadList, contacts);
+	menuAddCall(list_menu, "Rensa lista", actionsPruneList, contacts);
 	menuAddCall(list_menu, "Visa lista", actionsShowList, contacts);
 
 	printf("\n--== Välkommen till Coronablinkern ==--\n");
@@ -35,15 +36,15 @@ int main()
 	printf("\n---------------------------------------\n");
 	
 	listLoad(contacts, FILE_NAME);
-	time(&now);
-	listPrune(contacts, now-MAX_AGE);
+	//time(&now);
+	//listPrune(contacts, now-MAX_AGE);
 
 	while(menuSelection(main_menu))
 	{
 		printf("\n---------------------------------------\n");
 	}
-	time(&now);
-	listPrune(contacts, now-MAX_AGE);
+	//time(&now);
+	//listPrune(contacts, now-MAX_AGE);
 	listSave(contacts, FILE_NAME);
 }
 

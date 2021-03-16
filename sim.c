@@ -1,6 +1,6 @@
 #include "sim.h"
 
-int simContact(list_t list)
+int simContact(contact_list list)
 {
 	int i = uiUserInput("Ange enhetens id > ");
 
@@ -30,14 +30,14 @@ int simContact(list_t list)
 	return 1;
 }
 
-int simAlert(list_t list)
+int simAlert(contact_list list)
 {
 	printf("\nSmittlarm mottaget. Meddelar servern.\n\n");
 	uiShowList(list);
 	return 1;
 }
 
-int simCase(list_t list)
+int simCase(contact_list list)
 {
 	printf("\nÖppningskod mottagen:\n");
 	printf("- Tar bort föråldrade kontakter\n");
