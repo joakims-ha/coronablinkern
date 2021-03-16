@@ -11,12 +11,12 @@ menu_t *menuCreate(menu_t *parent, char *title){
     if(parent)
     {
         newItem->ptr1 = parent;
-        newItem->text = "Gå bakåt";
+        newItem->text = "Bakåt";
     }
     else
     {
         newItem->ptr1 = NULL;
-        newItem->text = "Avsluta programmet";
+        newItem->text = "Avsluta";
     }
     newMenu->items[0] = newItem; 
 
@@ -31,7 +31,6 @@ void menuAdd(menu_t *menu, int type, char *text, void *ptr1, void *ptr2)
     newItem->ptr1 = ptr1;
     newItem->ptr2 = ptr2;
     menu->size++;
-    //menu->items = (menu_i *) realloc(menu->items, menu->size);
     menu->items[menu->size] = newItem; 
 }
 
@@ -47,21 +46,21 @@ void menuAddCall(menu_t *parent, char *text, void *func, void *arg)
 
 void menuShow(menu_t *menu)
 {
-    printf("\n -[ %s ]-\n\n",menu->title);
+    printf("\n ---[ %s ]---\n\n",menu->title);
     for(int i = 1; i <= menu->size; i++)
     {
         if(menu->items[i])
         {
-            printf(" %i} %s\n", i, menu->items[i]->text);
+            printf(" %i %s\n", i, menu->items[i]->text);
         }
     }
-    printf("\n 0} %s\n", menu->items[0]->text);
+    printf("\n 0 %s\n", menu->items[0]->text);
 }
 
 int menuSelection(menu_t *menu)
 {
 	menuShow(menu);
-    int input = uiUserInput("-> ");
+    int input = userInput("-> ");
     if(input >= 0 && input <= menu->size)
     {
         if(menu->items[input]->type == M_MENU)

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "ui.h"
-
 #define M_QUIT 0
 #define M_MENU 1
 #define M_CALL 2

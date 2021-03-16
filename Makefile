@@ -1,5 +1,5 @@
-cb: actions.o menu.o ui.o list.o main.o
-	gcc -o coronablinkern actions.o menu.o ui.o list.o main.o
+cb: actions.o menu.o list.o main.o
+	gcc -o coronablinkern actions.o menu.o list.o main.o
 
 test: list.o test.o
 	gcc -o test list.o test.o -lcunit 

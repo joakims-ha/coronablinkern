@@ -2,12 +2,14 @@
 #ifndef ACTIONS
 #define ACTIONS
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include "list.h"
-#include "ui.h"
 #include "config.h"
 
+int userInput(char *prompt);
 int actionsCreateList(contact_list devices);
 int actionsSaveList(contact_list devices);
 int actionsLoadList(contact_list devices);

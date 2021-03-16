@@ -4,16 +4,25 @@
 #include "config.h"
 #include "list.h"
 #include "menu.h"
-#include "ui.h"
 #include "actions.h"
 
-int main()
+
+int main(int argc, char *argv[])
 {	
+	printf("\n--== Välkommen till Coronablinkern ==--\n");
+	
+	if( argc == 2 ) {
+    	printf("The argument supplied is %s\n", argv[1]);
+	}
+	else if( argc > 2 ) {
+		printf("Too many arguments supplied.\n");
+	}
+
 	time_t now;
 	contact_list contacts = listCreate();
 	
 	menu_t *main_menu = menuCreate(NULL,"Huvudmeny");
-	menu_t *test_menu = menuCreate(main_menu,"Test");
+	menu_t *test_menu = menuCreate(main_menu,"Testning");
 	menu_t *sim_menu = menuCreate(test_menu,"Simulering");
 	menu_t *list_menu = menuCreate(test_menu,"Lista");
 
@@ -32,8 +41,6 @@ int main()
 	menuAddMenu(test_menu, sim_menu);
 	menuAddMenu(test_menu, list_menu);
 	
-	printf("\n--== Välkommen till Coronablinkern ==--\n");
-	
 	listLoad(contacts, FILE_NAME);
 	time(&now);
 	listPrune(contacts, now-MAX_AGE);
@@ -42,4 +49,3 @@ int main()
 	listPrune(contacts, now-MAX_AGE);
 	listSave(contacts, FILE_NAME);
 }
-

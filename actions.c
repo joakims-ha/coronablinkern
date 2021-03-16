@@ -1,5 +1,14 @@
 #include "actions.h"
 
+int userInput(char *prompt)
+{
+    int c, m;
+    printf("\n%s",prompt);
+	scanf("%d", &m);
+    while ((c = getchar()) != '\n' && c != EOF);
+	return m;
+}
+
 int actionsCreateList(contact_list devices)
 {
 	time_t now;
@@ -34,13 +43,13 @@ int actionsPruneList(contact_list devices)
 
 int actionsShowList(contact_list devices)
 {
-	uiShowList(devices);
+	showList(devices);
 	return 1;
 }
 
 int actionsSimulateCase(contact_list devices)
 {
-	if(uiUserInput("Ange öppningskod > ")==DEVICE_CODE)
+	if(userInput("Ange öppningskod > ")==DEVICE_CODE)
 	{
 		printf("\nÖppningskod mottagen:\n");
 		printf("- Tar bort föråldrade kontakter\n");
@@ -49,7 +58,7 @@ int actionsSimulateCase(contact_list devices)
 		long int max = now-MAX_AGE;
 		listPrune(devices, max);
 		printf("- Sänder information till servern\n");
-		uiShowList(devices);
+		showList(devices);
 	}
 	else
 	{
@@ -60,7 +69,7 @@ int actionsSimulateCase(contact_list devices)
 
 int actionsSimulateContact(contact_list list)
 {
-	int id = uiUserInput("Ange enhetens id > ");
+	int id = userInput("Ange enhetens id > ");
 	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
 	char date_in[18];
 	fgets(date_in, 18, stdin);
@@ -92,6 +101,16 @@ int actionsSimulateContact(contact_list list)
 int actionsSimulateAlert(contact_list list)
 {
 	printf("\nSmittlarm mottaget. Meddelar servern.\n\n");
-	uiShowList(list);
+	showList(list);
 	return 1;
+}
+
+void showList(contact_list list)
+{
+	printf("\n-------------| Contacts |--------------\n\n");
+	for(int i=0;i<list->size;i++)
+	{
+		printf("[%12.12li] %s", list->items[i].id, ctime(&list->items[i].date));
+	}
+	printf("\n---------------------------------------\n");
 }
