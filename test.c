@@ -1,7 +1,7 @@
 #include "CUnit/Basic.h"
 #include "list.h"
 
-static list_t list = NULL;
+static contact_list list = NULL;
 
 int init_suite_success(void) { return 0; }
 int clean_suite_success(void) { return 0; }
@@ -9,29 +9,36 @@ int clean_suite_success(void) { return 0; }
 void list_create(void)
 {   
     list = listCreate();    
-    CU_ASSERT_TRUE(listIsEmpty(list));
-    CU_ASSERT_TRUE(listLength(list)==0);
+    CU_ASSERT_TRUE(list->size==0);
 }
 
 void list_add(void)
 {   
     listAdd(list,1,3);
-    CU_ASSERT_FALSE(listIsEmpty(list))
-    CU_ASSERT_TRUE(listLength(list)==1);
-    CU_ASSERT(list->start->id==1&&list->start->date==3);
+    CU_ASSERT(list->size==1);
     listAdd(list,2,1);
     listAdd(list,3,2);
     listAdd(list,4,4);
-    CU_ASSERT_TRUE(listLength(list)==4);
+    CU_ASSERT_TRUE(list->size==4);
+}
+
+void list_sort(void)
+{   
+    CU_ASSERT(list->items[0].id==4);
+    CU_ASSERT(list->items[1].id==1);
+    CU_ASSERT(list->items[2].id==3);
+    CU_ASSERT(list->items[3].id==2);
 }
 
 void list_prune(void)
 {   
     listPrune(list,2);
-    CU_ASSERT_TRUE(listLength(list)==3);
-    CU_ASSERT(list->start->id==4);
+    CU_ASSERT(list->size==3);
+    CU_ASSERT(list->items[0].id==4);
+    CU_ASSERT(list->items[1].id==1);
+    CU_ASSERT(list->items[2].id==3);
     listPrune(list,5);
-    CU_ASSERT_TRUE(listIsEmpty(list))
+    CU_ASSERT(list->size==0);
 }
 
 int main()
@@ -54,7 +61,8 @@ int main()
     (
         (NULL == CU_add_test(pSuite, "create a new empty list", list_create)) ||
         (NULL == CU_add_test(pSuite, "add item to list", list_add)) ||
-        (NULL == CU_add_test(pSuite, "remove old items from list", list_prune))
+         (NULL == CU_add_test(pSuite, "item are sorted", list_sort)) ||
+        (NULL == CU_add_test(pSuite, "old items removed", list_prune))
     )
     {
         CU_cleanup_registry();
