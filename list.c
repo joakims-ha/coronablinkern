@@ -21,13 +21,20 @@ void listAdd(contact_list list, long int id, long int date)
 {
 	list->size++;
 	list->items = realloc(list->items, list->size*sizeof(contact));
-
 	contact *newItem = malloc(sizeof(contact));
 	newItem->id = id;
 	newItem->date = date;
-
 	list->items[list->size-1] = *newItem;
-
+	contact tmpItem;
+	for(int i=list->size-1;i>0;i--)
+	{
+		if(list->items[i-1].date < list->items[i].date)
+		{
+			tmpItem = list->items[i];
+			list->items[i] = list->items[i-1];
+			list->items[i-1] = tmpItem;
+		}
+	}
 }
 
 void listPrune(contact_list list, long int age)
