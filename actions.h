@@ -13,5 +13,7 @@ int actionsLoadList(contact_list devices);
 int actionsShowList(contact_list devices);
 int actionsPruneList(contact_list devices);
 int actionsSimulateCase(contact_list devices);
+int actionsSimulateContact(contact_list list);
+int actionsSimulateAlert(contact_list list);
 
 #endif

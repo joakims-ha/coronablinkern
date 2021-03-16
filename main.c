@@ -3,10 +3,8 @@
 #include <time.h>
 #include "config.h"
 #include "list.h"
-#include "sim.h"
 #include "menu.h"
 #include "ui.h"
-#include "io.h"
 #include "actions.h"
 
 int main()
@@ -22,8 +20,8 @@ int main()
 	menuAddMenu(main_menu, sim_menu);
 	menuAddMenu(sim_menu, list_menu);
 
-	menuAddCall(sim_menu, "Simulera kontakt", simContact, contacts);
-	menuAddCall(sim_menu, "Simulera larm", simAlert, contacts);
+	menuAddCall(sim_menu, "Simulera kontakt", actionsSimulateContact, contacts);
+	menuAddCall(sim_menu, "Simulera larm", actionsSimulateAlert, contacts);
 
 	menuAddCall(list_menu, "Generera lista", actionsCreateList, contacts);
 	menuAddCall(list_menu, "Spara lista", actionsSaveList, contacts);
