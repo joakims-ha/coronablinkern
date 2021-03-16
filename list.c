@@ -32,14 +32,30 @@ void listAdd(contact_list list, long int id, long int date)
 
 void listPrune(contact_list list, long int age)
 {
+	int f,c = 0;
 	for(int i=0;i<list->size;i++)
 	{
 		if(list->items[i].date<age)
 		{
 			list->items[i].id = 0;
-			list->items[i].date = 0;
+			c++;
 		}
 	}
+	for(int i=0;i<list->size;i++)
+	{
+		if(list->items[i].id == 0)
+		{			
+			f = i;
+			while(list->items[f].id == 0 && f < list->size)
+			{
+				f++;
+			}
+			list->items[i] = list->items[f];
+			list->items[f].id = 0;
+		}
+	}
+	list->size = list->size - c;
+	list->items = realloc(list->items, list->size*sizeof(contact));
 }
 
 bool listIdExist(contact_list list, long int id)
