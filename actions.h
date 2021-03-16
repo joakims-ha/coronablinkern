@@ -3,6 +3,7 @@
 #define ACTIONS
 
 #include <time.h>
+#include <string.h>
 #include "list.h"
 #include "ui.h"
 #include "config.h"

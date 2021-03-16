@@ -60,30 +60,31 @@ int actionsSimulateCase(contact_list devices)
 
 int actionsSimulateContact(contact_list list)
 {
-	int i = uiUserInput("Ange enhetens id > ");
-
+	int id = uiUserInput("Ange enhetens id > ");
 	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
-	char d[18];
-	fgets(d, 18, stdin);
-	
-	struct tm tm;
+	char date_in[18];
+	fgets(date_in, 18, stdin);
 	time_t epoch;
-	// need check for leap year
-	if (strptime(d, "%y-%m-%d %H:%M:%S", &tm) != 0)
+	struct tm tm;
+	int r = strptime(date_in, "%y-%m-%d %H:%M:%S", &tm);
+	char *day1, *day2;
+	if (r != 0)
 	{
 		epoch = mktime(&tm);
-		if(i!=0)
-		{
-			listAdd(list, i, epoch);
-		} 
-		else 
-		{
-			listAdd(list, rand(), epoch);
-		}
+		day1 = strtok(strtok(date_in, " "), "-");
+		day1 = strtok(NULL, "-");
+		day1 = strtok(NULL, "-");
+		day2 = strtok(ctime(&epoch), " ");
+		day2 = strtok(NULL, " ");
+		day2 = strtok(NULL, " ");
+	}
+	if (r != 0 && (atoi(day1) == atoi(day2)))
+	{
+		listAdd(list, id, epoch);
 	}
 	else
 	{
-		printf("\nOgiltigt datum!");
+		printf("\nOgiltigt datum!\n");
 	}
 	return 1;
 }
