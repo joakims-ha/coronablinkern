@@ -9,7 +9,7 @@ int userInput(char *prompt)
 	return m;
 }
 
-int actionsCreateList(contact_list list)
+int createContacts(contact_list list)
 {
 	time_t now;
 	time(&now);
@@ -21,19 +21,19 @@ int actionsCreateList(contact_list list)
 	return 1;
 }
 
-int actionsSaveList(contact_list list)
+int saveList(contact_list list)
 {
 	listSave(list, FILE_NAME);
 	return 1;
 }
 
-int actionsLoadList(contact_list list)
+int loadList(contact_list list)
 {
 	listLoad(list, FILE_NAME);
 	return 1;
 }
 
-int actionsPruneList(contact_list list)
+int pruneList(contact_list list)
 {
 	time_t now;
 	time(&now);
@@ -52,12 +52,20 @@ int showList(contact_list list)
 	return 1;
 }
 
-int actionsAddContact(contact_list list)
+int addContact(contact_list list, long int id, char *date)
 {
-	int id = userInput("Ange enhetens id > ");
-	printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
 	char date_in[18];
-	fgets(date_in, 18, stdin);
+	if(!id || id==0)
+	{
+		id = userInput("Ange enhetens id > ");
+		printf("\nAnge datum i formatet 'YY-MM-DD HH:MM:SS' > ");
+		fgets(date_in, 18, stdin);
+		printf("\n");
+	}
+	else 
+	{
+		strcpy(date_in, date);
+	}
 	time_t epoch;
 	struct tm tm;
 	int r = strptime(date_in, "%y-%m-%d %H:%M:%S", &tm);
@@ -78,47 +86,44 @@ int actionsAddContact(contact_list list)
 	}
 	else
 	{
-		printf("\nOgiltigt datum!\n");
+		printf("Ogiltigt datum!\n");
 	}
 	return 1;
 }
 
-void sendAlert()
+int sendAlert(contact_list list, int code)
 {
-	printf("\nSkickar öppnings kod(%i) och enhets id(%i) till server.\n",DEVICE_CODE,DEVICE_ID);
-
-}
-
-int actionsSendAlert(contact_list list)
-{
-	if(userInput("Ange öppningskod > ")==DEVICE_CODE)
+	if(!code || code==0)
 	{
-		sendAlert();
+		code = userInput("Ange öppningskod > ");
+	}
+	if(code==DEVICE_CODE)
+	{
+		printf("Skickar enhets id(%i) till server.\n",DEVICE_ID);
 	}
 	else
 	{
-		printf("\nFelaktig kod!\n");
+		printf("Felaktig kod!\n");
 	}
 	return 1;
 }
 
-void reciveAlert(contact_list list, long int id)
+int reciveAlert(contact_list list, long int id)
 {
+	if(!id || id==0)
+	{
+		id = userInput("id > ");
+	}
 	time_t now;
 	time(&now);
 	listPrune(list, now-MAX_AGE);
 	if(listIdExist(list,id))
 	{
-		printf("\n!!! Du har varit i kontakt med smittad !!!\n");
+		printf("!!! Du har varit i kontakt med smittad !!!\n");
 	}
 	else
 	{
-		printf("\nIngen kontakt funnen!\n");
+		printf("Ingen kontakt funnen!\n");
 	}
-}
-
-int actionsReciveAlert(contact_list list)
-{
-	reciveAlert(list,userInput("id > "));
 	return 1;
 }
