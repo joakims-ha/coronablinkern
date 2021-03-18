@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-/*! \typedef list_i
- *  \brief List item
+/*! \typedef contact
+ *  \brief Contact list item
  */
 typedef struct contact_i
 {
@@ -16,8 +16,8 @@ typedef struct contact_i
 }
 contact;
 
-/*! \typedef list_t
- *  \brief List
+/*! \typedef contact_list
+ *  \brief List of contacts
  */
 typedef struct contact_l
 {
