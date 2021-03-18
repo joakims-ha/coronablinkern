@@ -37,13 +37,17 @@ int main(int argc, char *argv[])
 		}
 		else if(!strcmp(argv[1], "help"))
 		{
-			printf("Coronablinkern Hjälp\n\n");
-			printf("testing 		- visa test meny\n");
-			printf("add [id] [date]		- lägg till kontakt\n");
-			printf("sick [code]		- rapportera smitta\n");
-			printf("check [id]		- kontrollera kontakt\n");
-			printf("debug			- visa kontakt list\n");
-			printf("help			- visa denna hjälptext\n");
+			printf("           Coronablinkern\n");
+			printf("=======================================\n");
+			printf(" kommando          funktion\n");
+			printf("---------------------------------------\n");
+			printf(" testing         - visa test meny\n");
+			printf(" add [id] [date] - lägg till kontakt\n");
+			printf(" sick [code]     - rapportera smitta\n");
+			printf(" check [id]      - kontrollera kontakt\n");
+			printf(" debug           - visa kontakt lista\n");
+			printf(" help            - visa denna hjälptext\n");
+			printf("---------------------------------------\n");
 		}
 		else if(!strcmp(argv[1], "debug"))
 		{
@@ -81,7 +85,7 @@ int main(int argc, char *argv[])
 			printf("Ogiltigt kommando!\n");
 		}
 	}
-	else if(argc == 5)
+	else if(argc == 4)
 	{
 		if(!strcmp(argv[1], "add"))
 		{
