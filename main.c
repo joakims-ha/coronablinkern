@@ -21,10 +21,6 @@ int main(int argc, char *argv[])
 	}
 	else if(argc == 2)
 	{
-		if(!strcmp(argv[1], "help"))
-		{
-			printf("Help text\n");
-		}
 		if(!strcmp(argv[1], "testing"))
 		{
 			menu_t *test_menu = menuCreate(main_menu,"Testning");
@@ -43,17 +39,25 @@ int main(int argc, char *argv[])
 			printf("\nTestning av Coronablinkern\n");
 			while(menuSelection(main_menu));
 		}
-		if(!strcmp(argv[1], "debug"))
+		else if(!strcmp(argv[1], "help"))
+		{
+			printf("Help text\n");
+		}
+		else if(!strcmp(argv[1], "debug"))
 		{
 			showList(contacts);
 		}
-		if(!strcmp(argv[1], "sick"))
+		else if(!strcmp(argv[1], "sick"))
 		{
 			printf("Id saknas!\n");
 		}
-		if(!strcmp(argv[1], "add"))
+		else if(!strcmp(argv[1], "add"))
 		{
 			printf("Id och datum saknas!\n");
+		}
+		else
+		{
+			printf("Ogiltigt kommando!\n");
 		}
 	}
 	else if(argc == 3)
@@ -62,13 +66,17 @@ int main(int argc, char *argv[])
 		{
 			sendAlert(contacts, atoi(argv[2]));
 		}
-		if(!strcmp(argv[1], "check"))
+		else if(!strcmp(argv[1], "check"))
 		{
 			reciveAlert(contacts, atoi(argv[2]));
 		}
-		if(!strcmp(argv[1], "add"))
+		else if(!strcmp(argv[1], "add"))
 		{
 			printf("Datum saknas!\n");
+		}
+		else
+		{
+			printf("Ogiltigt kommando!\n");
 		}
 	}
 	else if(argc == 5)
@@ -76,6 +84,10 @@ int main(int argc, char *argv[])
 		if(!strcmp(argv[1], "add"))
 		{
 			printf("Ogiltigt datum!\n");
+		}
+		else
+		{
+			printf("Ogiltigt kommando!\n");
 		}
 	}
 	else if(argc == 5)
@@ -87,6 +99,10 @@ int main(int argc, char *argv[])
 			strcat(date, " ");
 			strcat(date, argv[4]);
 			addContact(contacts, atoi(argv[2]), date);
+		}
+		else
+		{
+			printf("Ogiltigt kommando!\n");
 		}
 	}
 	time(&now);
