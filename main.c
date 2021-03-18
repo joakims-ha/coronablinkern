@@ -23,21 +23,27 @@ int main(int argc, char *argv[])
 		if(!strcmp(argv[1], "testing"))
 		{
 			menu_t *test_menu = menuCreate(main_menu,"Testning");
+			menuAddCall(test_menu, "Generera kontakter", createContacts, contacts);
 			menu_t *sim_menu = menuCreate(test_menu,"Simulering");
-			menu_t *list_menu = menuCreate(test_menu,"Lista");
 			menuAddCall(sim_menu, "Simulera kontakt", addContact, contacts);
 			menuAddCall(sim_menu, "Simulera larm", reciveAlert, contacts);
+			menu_t *list_menu = menuCreate(test_menu,"Lista");
 			menuAddCall(list_menu, "Spara lista", saveList, contacts);
 			menuAddCall(list_menu, "Ladda lista", loadList, contacts);
 			menuAddCall(list_menu, "Rensa lista", pruneList, contacts);
 			menuAddCall(list_menu, "Visa lista", showList, contacts);
-			menuAddCall(test_menu, "Generera kontakter", createContacts, contacts);
 			printf("\nTestning av Coronablinkern\n");
 			while(menuSelection(main_menu));
 		}
 		else if(!strcmp(argv[1], "help"))
 		{
-			printf("Help text\n");
+			printf("Coronablinkern Hjälp\n\n");
+			printf("testing 		- visa test meny\n");
+			printf("add [id] [date]		- lägg till kontakt\n");
+			printf("sick [code]		- rapportera smitta\n");
+			printf("check [id]		- kontrollera kontakt\n");
+			printf("debug			- visa kontakt list\n");
+			printf("help			- visa denna hjälptext\n");
 		}
 		else if(!strcmp(argv[1], "debug"))
 		{
@@ -45,7 +51,7 @@ int main(int argc, char *argv[])
 		}
 		else if(!strcmp(argv[1], "sick"))
 		{
-			printf("Id saknas!\n");
+			printf("Öppningskod saknas!\n");
 		}
 		else if(!strcmp(argv[1], "add"))
 		{
