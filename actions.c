@@ -83,6 +83,7 @@ int addContact(contact_list list, long int id, char *date)
 	if (r != 0 && (atoi(day1) == atoi(day2)))
 	{
 		listAdd(list, id, epoch);
+		printf("Lade till kontakt");
 	}
 	else
 	{

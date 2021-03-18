@@ -1,7 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
 #include "config.h"
 #include "list.h"
 #include "menu.h"
@@ -24,6 +21,10 @@ int main(int argc, char *argv[])
 	}
 	else if(argc == 2)
 	{
+		if(!strcmp(argv[1], "help"))
+		{
+			printf("Help text\n");
+		}
 		if(!strcmp(argv[1], "testing"))
 		{
 			menu_t *test_menu = menuCreate(main_menu,"Testning");
@@ -46,6 +47,14 @@ int main(int argc, char *argv[])
 		{
 			showList(contacts);
 		}
+		if(!strcmp(argv[1], "sick"))
+		{
+			printf("Id saknas!\n");
+		}
+		if(!strcmp(argv[1], "add"))
+		{
+			printf("Id och datum saknas!\n");
+		}
 	}
 	else if(argc == 3)
 	{
@@ -56,6 +65,17 @@ int main(int argc, char *argv[])
 		if(!strcmp(argv[1], "check"))
 		{
 			reciveAlert(contacts, atoi(argv[2]));
+		}
+		if(!strcmp(argv[1], "add"))
+		{
+			printf("Datum saknas!\n");
+		}
+	}
+	else if(argc == 5)
+	{
+		if(!strcmp(argv[1], "add"))
+		{
+			printf("Ogiltigt datum!\n");
 		}
 	}
 	else if(argc == 5)
