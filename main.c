@@ -4,7 +4,6 @@
 #include "menu.h"
 #include "actions.h"
 
-
 int main(int argc, char *argv[])
 {	
 	time_t now;

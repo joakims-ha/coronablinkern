@@ -2,13 +2,14 @@
 
 void menuAdd(menu_t *menu, int type, char *text, void *ptr1, void *ptr2)
 {
+    menu->size++;
+    menu->items = realloc(menu->items, menu->size*sizeof(menu_i));
     menu_i *newItem = malloc(sizeof(menu_t));
     newItem->type = type;
     newItem->text = text;
     newItem->ptr1 = ptr1;
     newItem->ptr2 = ptr2;
-    menu->size++;
-    menu->items[menu->size-1] = newItem; 
+    menu->items[menu->size-1] = *newItem; 
 }
 
 void menuAddCall(menu_t *parent, char *text, void *func, void *arg)
@@ -21,6 +22,7 @@ menu_t *menuCreate(menu_t *parent, char *title){
     newMenu->parent = parent;
     newMenu->title = title;
     newMenu->size = 0;
+    newMenu->items = NULL;
     if(parent)
     {
         menuAdd(newMenu, M_QUIT, "Bakåt", parent, NULL);
@@ -38,12 +40,9 @@ void menuShow(menu_t *menu)
     printf("\n ---[ %s ]---\n\n",menu->title);
     for(int i = 1; i <= menu->size-1; i++)
     {
-        if(menu->items[i])
-        {
-            printf(" %i %s\n", i, menu->items[i]->text);
-        }
+        printf(" %i %s\n", i, menu->items[i].text);
     }
-    printf("\n 0 %s\n", menu->items[0]->text);
+    printf("\n 0 %s\n", menu->items[0].text);
 }
 
 int menuSelection(menu_t *menu)
@@ -52,16 +51,16 @@ int menuSelection(menu_t *menu)
     int input = userInput("-> ");
     if(input >= 0 && input <= menu->size)
     {
-        if(menu->items[input]->type == M_MENU)
+        if(menu->items[input].type == M_MENU)
         {
-            return menuSelection(menu->items[input]->ptr1);
+            return menuSelection(menu->items[input].ptr1);
         }
-        else if(menu->items[input]->type == M_CALL)
+        else if(menu->items[input].type == M_CALL)
         {
-            int(*func)() = menu->items[input]->ptr1 ;
-            return (func)(menu->items[input]->ptr2);
+            int(*func)() = menu->items[input].ptr1 ;
+            return (func)(menu->items[input].ptr2);
         }
-        else if(menu->items[input]->type == M_QUIT)
+        else if(menu->items[input].type == M_QUIT)
         {
             if(menu->parent)
             {

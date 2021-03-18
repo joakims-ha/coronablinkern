@@ -22,7 +22,7 @@ typedef struct menu_t {
     char *title;
     int size;
     struct menu_t *parent;
-    struct menu_i *items[10]; // Make dynamic !!!
+    struct menu_i *items;
 }menu_t;
 
 
