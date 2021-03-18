@@ -1,5 +1,21 @@
 #include "menu.h"
 
+void menuAdd(menu_t *menu, int type, char *text, void *ptr1, void *ptr2)
+{
+    menu_i *newItem = malloc(sizeof(menu_t));
+    newItem->type = type;
+    newItem->text = text;
+    newItem->ptr1 = ptr1;
+    newItem->ptr2 = ptr2;
+    menu->size++;
+    menu->items[menu->size] = newItem; 
+}
+
+void menuAddCall(menu_t *parent, char *text, void *func, void *arg)
+{
+    menuAdd(parent, M_CALL, text, func, arg);
+}
+
 menu_t *menuCreate(menu_t *parent, char *title){    
     menu_t *newMenu = malloc(sizeof(menu_t));
     newMenu->parent = parent;
@@ -20,28 +36,11 @@ menu_t *menuCreate(menu_t *parent, char *title){
     }
     newMenu->items[0] = newItem; 
 
+    if(parent)
+    {
+         menuAdd(parent, M_MENU, newMenu->title, newMenu, NULL);
+    }
     return newMenu;
-}
-
-void menuAdd(menu_t *menu, int type, char *text, void *ptr1, void *ptr2)
-{
-    menu_i *newItem = malloc(sizeof(menu_t));
-    newItem->type = type;
-    newItem->text = text;
-    newItem->ptr1 = ptr1;
-    newItem->ptr2 = ptr2;
-    menu->size++;
-    menu->items[menu->size] = newItem; 
-}
-
-void menuAddMenu(menu_t *parent, menu_t *menu)
-{
-    menuAdd(parent, M_MENU, menu->title, menu, NULL);
-}
-
-void menuAddCall(menu_t *parent, char *text, void *func, void *arg)
-{
-    menuAdd(parent, M_CALL, text, func, arg);
 }
 
 void menuShow(menu_t *menu)

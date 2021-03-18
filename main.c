@@ -26,9 +26,6 @@ int main(int argc, char *argv[])
 			menu_t *test_menu = menuCreate(main_menu,"Testning");
 			menu_t *sim_menu = menuCreate(test_menu,"Simulering");
 			menu_t *list_menu = menuCreate(test_menu,"Lista");
-			menuAddMenu(main_menu, test_menu);
-			menuAddMenu(test_menu, sim_menu);
-			menuAddMenu(test_menu, list_menu);
 			menuAddCall(sim_menu, "Simulera kontakt", addContact, contacts);
 			menuAddCall(sim_menu, "Simulera larm", reciveAlert, contacts);
 			menuAddCall(list_menu, "Spara lista", saveList, contacts);

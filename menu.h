@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "actions.h"
 
 #define M_QUIT 0
 #define M_MENU 1
@@ -26,8 +27,6 @@ typedef struct menu_t {
 
 
 menu_t *menuCreate(menu_t *parent, char *title);
-
-void menuAddMenu(menu_t *parent, menu_t *menu);
 
 void menuAddCall(menu_t *menu, char *text, void *func, void *arg);
 
